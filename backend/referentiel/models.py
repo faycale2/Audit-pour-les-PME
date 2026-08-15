@@ -41,6 +41,7 @@ class Question(models.Model):
     ref_iso27001 = models.CharField(max_length=50, blank=True)
     ref_nist = models.CharField(max_length=50, blank=True)
     ref_loi0908 = models.CharField(max_length=50, blank=True)
+    recommandation = models.TextField(blank=True)
     ordre = models.PositiveIntegerField(default=0)
 
     class Meta:

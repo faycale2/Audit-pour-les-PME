@@ -80,7 +80,7 @@ class Command(BaseCommand):
     def _import_questions(self, ws, themes_map):
         questions_map = {}
         for row in ws.iter_rows(min_row=2, values_only=True):
-            theme_code, numero, texte, ref_iso, ref_nist, ref_loi, ordre = row
+            theme_code, numero, texte, ref_iso, ref_nist, ref_loi, recommandation, ordre = row
             if numero is None:
                 continue
 
@@ -99,6 +99,7 @@ class Command(BaseCommand):
                     "ref_iso27001": ref_iso or "",
                     "ref_nist": ref_nist or "",
                     "ref_loi0908": ref_loi or "",
+                    "recommandation": recommandation or "",
                     "ordre": ordre,
                 },
             )
