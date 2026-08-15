@@ -21,7 +21,7 @@ class PMEAdmin(admin.ModelAdmin):
 
 @admin.register(ConfigurationSeuils)
 class ConfigurationSeuilsAdmin(admin.ModelAdmin):
-    list_display = ["seuil_critique", "seuil_intermediaire", "date_modification"]
+    list_display = ["seuil_niveau2", "seuil_niveau3", "seuil_niveau4", "seuil_niveau5", "date_modification"]
 
 
 @admin.register(ConsultantPME)
