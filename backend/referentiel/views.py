@@ -15,7 +15,7 @@ from referentiel.serializers import (
 from referentiel.services import ScoreCalculator
 from referentiel.pdf import generer_rapport_pdf
 from accounts.permissions import IsPME
-
+from referentiel.analytics import AnalysePredictiveComparative
 
 # ---------------------------------------------------------------------
 @api_view(["GET"])
@@ -128,3 +128,45 @@ def telecharger_rapport_pdf(request, evaluation_id):
     filename = f"rapport_audit_{evaluation.pme.nom_entreprise}_{evaluation.id}.pdf".replace(" ", "_")
 
     return FileResponse(buffer, as_attachment=True, filename=filename)
+
+# ---------------------------------------------------------------------
+@api_view(["GET"])
+@permission_classes([IsAuthenticated, IsPME])
+def evolution_et_tendance(request):
+    """Historique des scores de la PME connectée + tendance projetée."""
+    pme = getattr(request.user, "pme", None)
+    if pme is None:
+        return Response({"detail": "Aucun profil PME associé à ce compte."}, status=status.HTTP_400_BAD_REQUEST)
+
+    historique = AnalysePredictiveComparative.historique_pme(pme)
+    tendance = AnalysePredictiveComparative.tendance_pme(pme)
+
+    return Response({"historique": historique, "tendance": tendance})
+
+
+# ---------------------------------------------------------------------
+@api_view(["GET"])
+@permission_classes([IsAuthenticated, IsPME])
+def comparatif_benchmark(request):
+    """Compare la dernière évaluation de la PME connectée à la moyenne (secteur + globale)."""
+    pme = getattr(request.user, "pme", None)
+    if pme is None:
+        return Response({"detail": "Aucun profil PME associé à ce compte."}, status=status.HTTP_400_BAD_REQUEST)
+
+    derniere_evaluation = (
+        Evaluation.objects.filter(pme=pme, statut=Evaluation.STATUT_TERMINEE)
+        .order_by("-date_fin")
+        .first()
+    )
+
+    if derniere_evaluation is None:
+        return Response({"detail": "Aucune évaluation terminée pour cette PME."}, status=status.HTTP_404_NOT_FOUND)
+
+    benchmark_secteur = AnalysePredictiveComparative.benchmark(secteur=pme.secteur)
+    benchmark_global = AnalysePredictiveComparative.benchmark(secteur=None)
+
+    return Response({
+        "score_pme": derniere_evaluation.score_total,
+        "benchmark_secteur": benchmark_secteur,
+        "benchmark_global": benchmark_global,
+    })

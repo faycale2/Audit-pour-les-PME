@@ -62,3 +62,11 @@ class EvaluationSerializer(serializers.ModelSerializer):
             "date_debut", "date_fin", "statut", "score_total",
         ]
         read_only_fields = ["id", "pme_nom", "referentiel_nom", "date_debut", "date_fin", "score_total"]
+
+class PointHistoriqueSerializer(serializers.Serializer):
+    index = serializers.IntegerField()
+    evaluation_id = serializers.IntegerField()
+    date = serializers.DateTimeField()
+    score_total = serializers.IntegerField()
+    score_maximum = serializers.IntegerField()
+    niveau = serializers.DictField()

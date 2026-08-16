@@ -18,3 +18,9 @@ export const getResultatsEvaluation = (evaluationId) =>
 
 export const getRapportPdfUrl = (evaluationId) =>
   `http://127.0.0.1:8000/api/referentiel/evaluations/${evaluationId}/rapport-pdf/`;
+
+export const getEvolutionTendance = () =>
+  axiosClient.get("/referentiel/pme/evolution/").then((res) => res.data);
+
+export const getComparatifBenchmark = () =>
+  axiosClient.get("/referentiel/pme/comparatif/").then((res) => res.data);

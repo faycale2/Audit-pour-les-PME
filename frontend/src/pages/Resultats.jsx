@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { getResultatsEvaluation, getRapportPdfUrl } from "../api/referentielApi";
 import "./Resultats.css";
+import { useParams, Link } from "react-router-dom";
 
 const NOMS_DOMAINES = { ISO_27001: "ISO/IEC 27001", NIST_CSF: "NIST CSF", LOI_09_08: "Loi 09-08" };
 
@@ -105,7 +105,9 @@ function Resultats() {
           </tbody>
         </table>
       </section>
-
+      <Link to="/evolution" className="btn btn-secondaire" style={{ marginBottom: 12, display: "inline-block", textDecoration: "none" }}>
+        Voir mon évolution et me comparer au marché →
+      </Link>
       <button className="btn btn-primaire btn-pdf" onClick={telechargerPdf}>
         Télécharger le rapport PDF complet
       </button>
