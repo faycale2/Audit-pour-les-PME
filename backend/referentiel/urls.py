@@ -9,4 +9,5 @@ urlpatterns = [
     path("evaluations/<int:evaluation_id>/rapport-pdf/", views.telecharger_rapport_pdf),
     path("pme/evolution/", views.evolution_et_tendance),
     path("pme/comparatif/", views.comparatif_benchmark),
+    path("segmentation-pme/", views.segmentation_pme),
 ]

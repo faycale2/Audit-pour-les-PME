@@ -16,7 +16,8 @@ from referentiel.services import ScoreCalculator
 from referentiel.pdf import generer_rapport_pdf
 from accounts.permissions import IsPME
 from referentiel.analytics import AnalysePredictiveComparative
-
+from accounts.permissions import IsConsultant, IsAdmin
+from rest_framework.permissions import OR
 # ---------------------------------------------------------------------
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
@@ -170,3 +171,16 @@ def comparatif_benchmark(request):
         "benchmark_secteur": benchmark_secteur,
         "benchmark_global": benchmark_global,
     })
+
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def segmentation_pme(request):
+    """Segmentation des PME par profil de maturité (K-means). Réservé consultant/admin."""
+    if request.user.role not in ("CONSULTANT", "ADMIN"):
+        return Response({"detail": "Accès réservé aux consultants et administrateurs."}, status=status.HTTP_403_FORBIDDEN)
+
+    n_clusters = int(request.GET.get("n_clusters", 3))
+    resultat = AnalysePredictiveComparative.segmenter_pmes(n_clusters=n_clusters)
+    return Response(resultat)
