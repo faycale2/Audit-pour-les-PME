@@ -11,4 +11,5 @@ urlpatterns = [
     path("pme/comparatif/", views.comparatif_benchmark),
     path("segmentation-pme/", views.segmentation_pme),
     path("pme/tendance-par-theme/", views.tendance_par_theme),
+    path("pme/prediction/", views.prediction_progression),
 ]

@@ -195,3 +195,14 @@ def tendance_par_theme(request):
 
     resultat = AnalysePredictiveComparative.tendance_par_theme(pme)
     return Response(resultat)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated, IsPME])
+def prediction_progression(request):
+    """Probabilité de progression significative de la PME connectée dans les 6 prochains mois (modèle ML)."""
+    pme = getattr(request.user, "pme", None)
+    if pme is None:
+        return Response({"detail": "Aucun profil PME associé à ce compte."}, status=status.HTTP_400_BAD_REQUEST)
+
+    resultat = AnalysePredictiveComparative.predire_progression(pme)
+    return Response(resultat)

@@ -4,7 +4,10 @@ from django.utils import timezone
 from accounts.models import PME
 from referentiel.models import Evaluation, Referentiel
 from referentiel.services import ScoreCalculator
-
+import os
+import joblib
+from django.conf import settings
+import numpy as np
 
 class AnalysePredictiveComparative:
     """
@@ -283,6 +286,69 @@ class AnalysePredictiveComparative:
             "assignations": assignations,
             "profils_clusters": profils_clusters,
             "avertissement": "Segmentation indicative — fiabilité statistique limitée avec un faible nombre de PME.",
+        }
+    
+    def predire_progression(pme):
+        """
+        Prédit, via le modèle supervisé entraîné sur données synthétiques,
+        la probabilité qu'une PME progresse significativement (+5 points de %
+        de score global) dans les 6 prochains mois, à partir de son profil actuel.
+
+        ⚠️ AVERTISSEMENT MÉTHODOLOGIQUE : ce modèle est entraîné sur un jeu de
+        données SYNTHÉTIQUE (trajectoires de PME simulées selon des hypothèses
+        de progression plausibles), faute de volume suffisant de données réelles
+        à ce stade du projet. Sa précision mesurée (~75%) reflète sa capacité à
+        généraliser sur ces données simulées, PAS une performance validée sur
+        de vraies PME marocaines. Ce champ est explicitement retourné par l'API
+        pour ne jamais masquer cette limite à l'utilisateur.
+        """
+        chemin_modele = os.path.join(settings.BASE_DIR, "referentiel", "ml_models", "progression_model.joblib")
+
+        if not os.path.exists(chemin_modele):
+            return {
+                "disponible": False,
+                "raison": "Le modèle prédictif n'a pas encore été entraîné "
+                          "(commande : python manage.py train_predictive_model).",
+            }
+
+        derniere_evaluation = (
+            Evaluation.objects.filter(pme=pme, statut=Evaluation.STATUT_TERMINEE)
+            .order_by("-date_fin")
+            .first()
+        )
+        if derniere_evaluation is None:
+            return {"disponible": False, "raison": "Aucune évaluation terminée pour cette PME."}
+
+        calc = ScoreCalculator(derniere_evaluation)
+        scores_theme = calc.calculer_scores_par_theme()
+        pourcentages_themes = [t["pourcentage"] for t in scores_theme]
+        score_global = sum(pourcentages_themes) / len(pourcentages_themes)
+
+        # tendance récente : réutilise la tendance globale pondérée déjà calculée (en % / mois, approximée)
+        tendance = AnalysePredictiveComparative.tendance_pme(pme)
+        score_maximum = derniere_evaluation.referentiel.score_maximum
+        tendance_pourcentage_mois = (
+            (tendance["pente_par_mois"] / score_maximum) * 100 if tendance.get("disponible") else 0
+        )
+
+        features = np.array([[score_global, *pourcentages_themes, tendance_pourcentage_mois]])
+
+        modele = joblib.load(chemin_modele)
+        probabilite_progression = modele.predict_proba(features)[0][1]  # probabilité de la classe "1" (progresse)
+
+        return {
+            "disponible": True,
+            "probabilite_progression_6_mois": round(float(probabilite_progression), 3),
+            "interpretation": (
+                "Probable progression significative dans les 6 prochains mois"
+                if probabilite_progression >= 0.5
+                else "Progression significative peu probable sans action corrective"
+            ),
+            "avertissement_methodologique": (
+                "Modèle entraîné sur données synthétiques (trajectoires de PME simulées), "
+                "en l'absence de volume suffisant de données réelles à ce stade du projet. "
+                "À ré-entraîner sur données réelles dès que possible."
+            ),
         }
     
     # -------------------------------------------------------------
