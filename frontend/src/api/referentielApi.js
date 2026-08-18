@@ -24,3 +24,9 @@ export const getEvolutionTendance = () =>
 
 export const getComparatifBenchmark = () =>
   axiosClient.get("/referentiel/pme/comparatif/").then((res) => res.data);
+
+export const getTendanceParTheme = () =>
+  axiosClient.get("/referentiel/pme/tendance-par-theme/").then((res) => res.data);
+
+export const getPredictionProgression = () =>
+  axiosClient.get("/referentiel/pme/prediction/").then((res) => res.data);

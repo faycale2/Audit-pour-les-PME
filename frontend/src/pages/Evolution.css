@@ -83,3 +83,50 @@
   text-decoration: none;
   margin-top: 24px;
 }
+
+.note-methode {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-400);
+  margin-top: 4px;
+}
+
+.themes-tendance-liste {
+  background: white;
+  border: 1px solid var(--paper-100);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.theme-tendance-ligne {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--paper-100);
+}
+.theme-tendance-ligne:last-child { border-bottom: none; }
+.theme-tendance-nom { flex: 1; font-size: 14px; color: var(--ink-700); }
+.theme-tendance-valeur { font-size: 13px; color: var(--ink-400); width: 50px; text-align: right; }
+
+.tendance-mini { font-size: 10px; padding: 2px 8px; margin-bottom: 0; }
+
+.prediction-carte {
+  background: white;
+  border: 1px solid var(--paper-100);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+}
+.prediction-jauge {
+  height: 10px;
+  background: var(--paper-100);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.prediction-jauge-remplie {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-500), var(--teal-600));
+  transition: width 0.4s ease;
+}
