@@ -184,3 +184,14 @@ def segmentation_pme(request):
     n_clusters = int(request.GET.get("n_clusters", 3))
     resultat = AnalysePredictiveComparative.segmenter_pmes(n_clusters=n_clusters)
     return Response(resultat)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated, IsPME])
+def tendance_par_theme(request):
+    """Tendance de progression, calculée séparément pour chaque thème, pour la PME connectée."""
+    pme = getattr(request.user, "pme", None)
+    if pme is None:
+        return Response({"detail": "Aucun profil PME associé à ce compte."}, status=status.HTTP_400_BAD_REQUEST)
+
+    resultat = AnalysePredictiveComparative.tendance_par_theme(pme)
+    return Response(resultat)

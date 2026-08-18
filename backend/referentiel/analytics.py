@@ -120,6 +120,73 @@ class AnalysePredictiveComparative:
 
     # -------------------------------------------------------------
     @staticmethod
+    def tendance_par_theme(pme, demi_vie_jours=60):
+        """
+        Même principe que tendance_pme(), mais calculé séparément pour chaque
+        thème (à partir du % obtenu par thème à chaque évaluation), afin de
+        détecter des dynamiques différentes selon les thèmes (ex : un thème qui
+        progresse pendant qu'un autre stagne, information perdue par la tendance globale).
+        """
+        evaluations = (
+            Evaluation.objects
+            .filter(pme=pme, statut=Evaluation.STATUT_TERMINEE)
+            .order_by("date_fin")
+        )
+        if evaluations.count() < 2:
+            return {
+                "disponible": False,
+                "raison": "Au moins 2 évaluations terminées sont nécessaires.",
+            }
+
+        # construit, pour chaque thème, la série (date, pourcentage) à travers les évaluations
+        series_par_theme = {}
+        for evaluation in evaluations:
+            calc = ScoreCalculator(evaluation)
+            for t in calc.calculer_scores_par_theme():
+                series_par_theme.setdefault(t["theme_nom"], []).append({
+                    "date": evaluation.date_fin,
+                    "pourcentage": t["pourcentage"],
+                })
+
+        maintenant = timezone.now()
+        resultats = {}
+
+        for theme_nom, points in series_par_theme.items():
+            date_premiere = points[0]["date"]
+            xs, ys, poids = [], [], []
+            for p in points:
+                jours = (p["date"] - date_premiere).total_seconds() / 86400
+                anciennete = (maintenant - p["date"]).total_seconds() / 86400
+                w = 0.5 ** (anciennete / demi_vie_jours)
+                xs.append(jours)
+                ys.append(p["pourcentage"])
+                poids.append(w)
+
+            somme_poids = sum(poids)
+            mx = sum(w * x for w, x in zip(poids, xs)) / somme_poids
+            my = sum(w * y for w, y in zip(poids, ys)) / somme_poids
+            num = sum(w * (x - mx) * (y - my) for w, x, y in zip(poids, xs, ys))
+            den = sum(w * (x - mx) ** 2 for w, x in zip(poids, xs))
+            pente = num / den if den else 0
+            pente_par_mois = round(pente * 30, 2)
+
+            if pente_par_mois > 1:
+                libelle = "En progression"
+            elif pente_par_mois < -1:
+                libelle = "En régression"
+            else:
+                libelle = "Stable"
+
+            resultats[theme_nom] = {
+                "pente_par_mois_pourcentage": pente_par_mois,
+                "tendance": libelle,
+                "dernier_pourcentage": points[-1]["pourcentage"],
+            }
+
+        return {"disponible": True, "par_theme": resultats}
+
+    # -------------------------------------------------------------
+    @staticmethod
     def benchmark(secteur=None):
         """Moyenne des scores sur toutes les évaluations terminées, filtrée par secteur si précisé."""
         queryset = Evaluation.objects.filter(statut=Evaluation.STATUT_TERMINEE)
@@ -194,8 +261,15 @@ class AnalysePredictiveComparative:
         for i, centre in enumerate(centres):
             theme_le_plus_faible = noms_themes[centre.index(min(centre))]
             theme_le_plus_fort = noms_themes[centre.index(max(centre))]
+            moyenne_centre = sum(centre) / len(centre)
+
+            nom_profil = AnalysePredictiveComparative._nommer_profil(
+                moyenne_centre, centre, theme_le_plus_fort, theme_le_plus_faible
+            )
+
             profils_clusters.append({
                 "cluster": i,
+                "nom_profil": nom_profil,
                 "centre_pourcentages_par_theme": [round(v, 1) for v in centre],
                 "point_faible_dominant": theme_le_plus_faible,
                 "point_fort_dominant": theme_le_plus_fort,
@@ -210,3 +284,22 @@ class AnalysePredictiveComparative:
             "profils_clusters": profils_clusters,
             "avertissement": "Segmentation indicative — fiabilité statistique limitée avec un faible nombre de PME.",
         }
+    
+    # -------------------------------------------------------------
+    @staticmethod
+    def _nommer_profil(moyenne_centre, centre, theme_le_plus_fort, theme_le_plus_faible):
+        """
+        Attribue un nom lisible à un profil de cluster : son niveau moyen,
+        et son point fort / point faible dominant (pour distinguer deux clusters
+        de niveau moyen proche mais de répartition différente entre thèmes).
+        """
+        if moyenne_centre < 30:
+            niveau = "Débutant"
+        elif moyenne_centre < 55:
+            niveau = "En construction"
+        elif moyenne_centre < 75:
+            niveau = "Avancé"
+        else:
+            niveau = "Mature"
+
+        return f"{niveau} — fort en {theme_le_plus_fort}, faible en {theme_le_plus_faible}"
