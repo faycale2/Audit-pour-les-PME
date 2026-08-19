@@ -1,0 +1,132 @@
+.evolution-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+.evolution-page h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0 0 32px;
+}
+
+.graphique-conteneur {
+  background: white;
+  border: 1px solid var(--paper-100);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+}
+
+.note-info {
+  font-size: 14px;
+  color: var(--ink-400);
+  background: var(--paper-100);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+}
+
+.tendance-carte {
+  background: white;
+  border: 1px solid var(--paper-100);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+}
+
+.tendance-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.tendance-hausse { background: var(--green-100); color: var(--green-600); }
+.tendance-baisse { background: var(--red-100); color: var(--red-600); }
+.tendance-stable { background: var(--paper-100); color: var(--ink-400); }
+
+.valeur-forte {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--teal-700);
+}
+
+.note-avertissement {
+  font-size: 13px;
+  color: var(--gold-500);
+  margin-top: 8px;
+}
+
+.comparatif-grille {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.comparatif-carte {
+  background: white;
+  border: 1px solid var(--paper-100);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.comparatif-vous { border-color: var(--teal-600); border-width: 2px; }
+.comparatif-label { font-size: 12px; color: var(--ink-400); }
+.comparatif-valeur { font-size: 24px; font-weight: 600; color: var(--ink-900); }
+.comparatif-note { font-size: 11px; color: var(--ink-400); font-family: var(--font-mono); }
+
+.lien-retour {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 24px;
+}
+
+.note-methode {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-400);
+  margin-top: 4px;
+}
+
+.themes-tendance-liste {
+  background: white;
+  border: 1px solid var(--paper-100);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.theme-tendance-ligne {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--paper-100);
+}
+.theme-tendance-ligne:last-child { border-bottom: none; }
+.theme-tendance-nom { flex: 1; font-size: 14px; color: var(--ink-700); }
+.theme-tendance-valeur { font-size: 13px; color: var(--ink-400); width: 50px; text-align: right; }
+
+.tendance-mini { font-size: 10px; padding: 2px 8px; margin-bottom: 0; }
+
+.prediction-carte {
+  background: white;
+  border: 1px solid var(--paper-100);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+}
+.prediction-jauge {
+  height: 10px;
+  background: var(--paper-100);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.prediction-jauge-remplie {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-500), var(--teal-600));
+  transition: width 0.4s ease;
+}
