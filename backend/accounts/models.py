@@ -38,15 +38,21 @@ class ConfigurationSeuils(models.Model):
     """
     Seuils de maturité configurables par l'administrateur
     (au lieu d'être codés en dur dans scoring.py).
+    5 niveaux de maturité (ISO/IEC 21827) = 4 bornes de séparation.
     Une seule ligne active à la fois.
     """
 
-    seuil_critique = models.PositiveIntegerField(default=40)
-    seuil_intermediaire = models.PositiveIntegerField(default=70)
+    seuil_niveau2 = models.PositiveIntegerField(default=24)  # début "Répétable"
+    seuil_niveau3 = models.PositiveIntegerField(default=47)  # début "Défini"
+    seuil_niveau4 = models.PositiveIntegerField(default=70)  # début "Contrôlé"
+    seuil_niveau5 = models.PositiveIntegerField(default=93)  # début "Optimisé"
     date_modification = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Critique ≤ {self.seuil_critique} | Intermédiaire ≤ {self.seuil_intermediaire}"
+        return (
+            f"N1 <{self.seuil_niveau2} | N2 <{self.seuil_niveau3} | "
+            f"N3 <{self.seuil_niveau4} | N4 <{self.seuil_niveau5} | N5 ≥{self.seuil_niveau5}"
+        )
 
 
 class ConsultantPME(models.Model):

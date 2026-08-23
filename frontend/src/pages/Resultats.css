@@ -1,0 +1,116 @@
+.resultats-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.resultats-page h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--ink-900);
+  margin: 0 0 32px;
+}
+
+.sceau-bloc {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: white;
+  border: 1px solid var(--paper-100);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 28px;
+  margin-bottom: 32px;
+}
+
+.sceau {
+  flex-shrink: 0;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 3px solid var(--gold-500);
+  background: var(--gold-100);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+}
+.sceau-niveau {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--ink-900);
+}
+.sceau-label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--ink-400);
+}
+
+.sceau-titre {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--teal-700);
+  margin: 0 0 6px;
+}
+.sceau-score {
+  font-size: 14px;
+  color: var(--ink-400);
+  margin: 0;
+}
+
+.section-bloc { margin-bottom: 28px; }
+.section-bloc h2 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--ink-900);
+  margin: 0 0 12px;
+}
+
+.tableau-resultats {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border: 1px solid var(--paper-100);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.tableau-resultats th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-400);
+  background: var(--paper-50);
+  padding: 10px 16px;
+}
+.tableau-resultats td {
+  padding: 12px 16px;
+  font-size: 14px;
+  border-top: 1px solid var(--paper-100);
+  color: var(--ink-700);
+}
+.mono { font-family: var(--font-mono); }
+
+.mini-barre {
+  display: inline-block;
+  width: 60px;
+  height: 5px;
+  background: var(--paper-100);
+  border-radius: 999px;
+  overflow: hidden;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+.mini-barre-remplie { height: 100%; background: var(--teal-600); }
+.mini-pourcentage { font-size: 12px; color: var(--ink-400); }
+
+.btn-pdf {
+  width: 100%;
+  padding: 16px;
+  font-size: 15px;
+  margin-top: 8px;
+}
