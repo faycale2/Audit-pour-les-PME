@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate
 from django.db.models import Avg, Count
 from django.db import transaction
 
-from .models import User, PME, ConfigurationSeuils
+from .models import User, PME, ConfigurationSeuils , FAQEntry
 from .serializers import InscriptionSerializer, ConnexionSerializer, UserSerializer, PMESerializer
 from .permissions import IsAdmin
 
@@ -132,3 +132,32 @@ def liste_utilisateurs(request):
     """Liste tous les comptes, pour la gestion des rôles côté admin."""
     users = User.objects.all()
     return Response(UserSerializer(users, many=True).data)
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def chatbot_question(request):
+    """
+    Recherche simple par mots-clés dans la base FAQ.
+    Retourne la première entrée dont un mot-clé apparaît dans le message envoyé.
+    """
+    message = request.data.get("message", "").lower().strip()
+    if not message:
+        return Response({"detail": "Le message ne peut pas être vide."}, status=status.HTTP_400_BAD_REQUEST)
+
+    entrees = FAQEntry.objects.all()
+    for entree in entrees:
+        mots_cles = [m.strip().lower() for m in entree.mots_cles.split(",")]
+        if any(mot in message for mot in mots_cles):
+            return Response({
+                "trouve": True,
+                "titre": entree.titre,
+                "reponse": entree.reponse,
+            })
+
+    return Response({
+        "trouve": False,
+        "reponse": (
+            "Je n'ai pas trouvé de réponse précise à votre question. "
+            "N'hésitez pas à reformuler, ou contactez le support pour une aide personnalisée."
+        ),
+    })

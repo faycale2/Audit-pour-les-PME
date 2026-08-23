@@ -58,3 +58,21 @@ class ConsultantPME(models.Model):
 
     class Meta:
         unique_together = ("consultant", "pme")
+
+
+
+class FAQEntry(models.Model):
+    """
+    Entrée de la base de connaissances du chatbot.
+    Recherche simple par mots-clés, pas de NLP complexe dans cette version.
+    """
+
+    titre = models.CharField(max_length=200, help_text="Ex: Pare-feu, Phishing, VPN")
+    mots_cles = models.CharField(
+        max_length=300,
+        help_text="Mots séparés par des virgules, utilisés pour la recherche (ex: pare-feu, firewall, protection réseau)",
+    )
+    reponse = models.TextField()
+
+    def __str__(self):
+        return self.titre		

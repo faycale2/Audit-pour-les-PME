@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, PME, ConfigurationSeuils, ConsultantPME
+from .models import User, PME, ConfigurationSeuils, ConsultantPME, FAQEntry
 
 
 @admin.register(User)
@@ -27,3 +27,8 @@ class ConfigurationSeuilsAdmin(admin.ModelAdmin):
 @admin.register(ConsultantPME)
 class ConsultantPMEAdmin(admin.ModelAdmin):
     list_display = ["consultant", "pme", "date_assignation"]
+
+@admin.register(FAQEntry)
+class FAQEntryAdmin(admin.ModelAdmin):
+    list_display = ["titre", "mots_cles"]
+    search_fields = ["titre", "mots_cles"]	

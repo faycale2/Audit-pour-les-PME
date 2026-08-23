@@ -12,4 +12,6 @@ urlpatterns = [
     path("admin/seuils/", views.gerer_seuils),
     path("admin/statistiques/", views.statistiques_globales),
     path("admin/utilisateurs/", views.liste_utilisateurs),
+
+	path("chatbot/question/", views.chatbot_question),
 ]
