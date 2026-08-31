@@ -3,6 +3,13 @@
 from django.db import migrations, models
 
 
+def create_faq_table_if_missing(apps, schema_editor):
+    table_name = "accounts_faqentry"
+    existing_tables = schema_editor.connection.introspection.table_names()
+    if table_name not in existing_tables:
+        schema_editor.create_model(apps.get_model("accounts", "FAQEntry"))
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -10,7 +17,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
+        migrations.SeparateDatabaseAndState(
+            database_operations=[migrations.RunPython(create_faq_table_if_missing, migrations.RunPython.noop)],
+            state_operations=[migrations.CreateModel(
             name='FAQEntry',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -18,5 +27,6 @@ class Migration(migrations.Migration):
                 ('mots_cles', models.CharField(help_text='Mots séparés par des virgules, utilisés pour la recherche (ex: pare-feu, firewall, protection réseau)', max_length=300)),
                 ('reponse', models.TextField()),
             ],
+            )],
         ),
     ]

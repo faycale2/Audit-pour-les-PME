@@ -4,6 +4,7 @@ from django.utils import timezone
 from accounts.models import PME
 from referentiel.models import Evaluation, Referentiel
 from referentiel.services import ScoreCalculator
+from referentiel.ml_training import NOMBRE_QUESTIONS_PAR_THEME
 import os
 import joblib
 from django.conf import settings
@@ -24,7 +25,7 @@ class AnalysePredictiveComparative:
         """Liste chronologique des évaluations terminées d'une PME."""
         evaluations = (
             Evaluation.objects
-            .filter(pme=pme, statut=Evaluation.STATUT_TERMINEE)
+            .filter(pme=pme, statut=Evaluation.STATUT_TERMINEE, date_fin__isnull=False, score_total__isnull=False)
             .order_by("date_fin")
         )
         historique = []
@@ -42,7 +43,7 @@ class AnalysePredictiveComparative:
     @staticmethod
     def _niveau_depuis_score(evaluation):
         calc = ScoreCalculator(evaluation)
-        return calc.determiner_niveau_maturite(evaluation.score_total)
+        return calc.determiner_niveau_maturite(evaluation.score_total or 0)
 
     # -------------------------------------------------------------
     @staticmethod
@@ -132,7 +133,7 @@ class AnalysePredictiveComparative:
         """
         evaluations = (
             Evaluation.objects
-            .filter(pme=pme, statut=Evaluation.STATUT_TERMINEE)
+            .filter(pme=pme, statut=Evaluation.STATUT_TERMINEE, date_fin__isnull=False)
             .order_by("date_fin")
         )
         if evaluations.count() < 2:
@@ -288,6 +289,7 @@ class AnalysePredictiveComparative:
             "avertissement": "Segmentation indicative — fiabilité statistique limitée avec un faible nombre de PME.",
         }
     
+    @staticmethod
     def predire_progression(pme):
         """
         Prédit, via le modèle supervisé entraîné sur données synthétiques,
@@ -319,10 +321,17 @@ class AnalysePredictiveComparative:
         if derniere_evaluation is None:
             return {"disponible": False, "raison": "Aucune évaluation terminée pour cette PME."}
 
+        historique = AnalysePredictiveComparative.historique_pme(pme)
+        if len(historique) < 2:
+            return {"disponible": False, "raison": "Pas assez de données pour une prédiction : 2 évaluations terminées sont nécessaires."}
+
         calc = ScoreCalculator(derniere_evaluation)
         scores_theme = calc.calculer_scores_par_theme()
         pourcentages_themes = [t["pourcentage"] for t in scores_theme]
-        score_global = sum(pourcentages_themes) / len(pourcentages_themes)
+        if len(pourcentages_themes) != 4:
+            return {"disponible": False, "raison": "Le modèle attend exactement 4 thèmes. Réentraînez le modèle pour ce référentiel."}
+        nb_questions = NOMBRE_QUESTIONS_PAR_THEME
+        score_global = sum(p * n for p, n in zip(pourcentages_themes, nb_questions)) / sum(nb_questions)
 
         # tendance récente : réutilise la tendance globale pondérée déjà calculée (en % / mois, approximée)
         tendance = AnalysePredictiveComparative.tendance_pme(pme)
@@ -333,8 +342,13 @@ class AnalysePredictiveComparative:
 
         features = np.array([[score_global, *pourcentages_themes, tendance_pourcentage_mois]])
 
-        modele = joblib.load(chemin_modele)
-        probabilite_progression = modele.predict_proba(features)[0][1]  # probabilité de la classe "1" (progresse)
+        try:
+            modele = joblib.load(chemin_modele)
+            if getattr(modele, "n_features_in_", None) != features.shape[1]:
+                return {"disponible": False, "raison": "Le modèle prédictif est incompatible avec le format actuel des données. Réentraînez-le."}
+            probabilite_progression = modele.predict_proba(features)[0][1]
+        except (OSError, ValueError, IndexError, AttributeError) as error:
+            return {"disponible": False, "raison": f"Le modèle prédictif ne peut pas être utilisé ({error.__class__.__name__}). Réentraînez-le."}
 
         return {
             "disponible": True,
