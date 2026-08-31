@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, PME, ConfigurationSeuils, ConsultantPME
+from .models import User, PME, ConfigurationSeuils, ConsultantPME, FAQEntry, DemandeAccompagnement, Message
 
 
 @admin.register(User)
@@ -27,3 +27,22 @@ class ConfigurationSeuilsAdmin(admin.ModelAdmin):
 @admin.register(ConsultantPME)
 class ConsultantPMEAdmin(admin.ModelAdmin):
     list_display = ["consultant", "pme", "date_assignation"]
+
+@admin.register(FAQEntry)
+class FAQEntryAdmin(admin.ModelAdmin):
+    list_display = ["titre", "mots_cles"]
+    search_fields = ["titre", "mots_cles"]	
+
+
+@admin.register(DemandeAccompagnement)
+class DemandeAccompagnementAdmin(admin.ModelAdmin):
+    list_display = ["pme", "consultant", "statut", "date_creation", "date_modification"]
+    list_filter = ["statut", "consultant"]
+    search_fields = ["pme__nom_entreprise", "commentaire", "reponse"]
+
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ["pme_concernee", "expediteur", "destinataire", "date_envoi", "lu"]
+    list_filter = ["lu", "date_envoi"]
+    search_fields = ["pme_concernee__nom_entreprise", "expediteur__username", "destinataire__username", "contenu"]

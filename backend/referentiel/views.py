@@ -18,6 +18,16 @@ from accounts.permissions import IsPME
 from referentiel.analytics import AnalysePredictiveComparative
 from accounts.permissions import IsConsultant, IsAdmin
 from rest_framework.permissions import OR
+
+
+def _evaluation_accessible(request, evaluation):
+    if request.user.role == "ADMIN":
+        return True
+    if request.user.role == "PME":
+        return evaluation.pme == getattr(request.user, "pme", None)
+    if request.user.role == "CONSULTANT":
+        return evaluation.pme.consultants.filter(consultant=request.user).exists()
+    return False
 # ---------------------------------------------------------------------
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
@@ -47,6 +57,12 @@ def demarrer_evaluation(request):
     if referentiel is None:
         return Response({"detail": "Aucun référentiel actif."}, status=status.HTTP_404_NOT_FOUND)
 
+    evaluation = Evaluation.objects.filter(
+        pme=pme, referentiel=referentiel, statut=Evaluation.STATUT_EN_COURS
+    ).first()
+    if evaluation is not None:
+        serializer = EvaluationSerializer(evaluation)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     evaluation = Evaluation.objects.create(pme=pme, referentiel=referentiel)
     serializer = EvaluationSerializer(evaluation)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -74,7 +90,9 @@ def soumettre_reponses(request, evaluation_id):
 
     with transaction.atomic():
         for item in serializer.validated_data["reponses"]:
-            question = get_object_or_404(Question, id=item["question_id"])
+            question = get_object_or_404(
+                Question, id=item["question_id"], theme__referentiel=evaluation.referentiel
+            )
             choix = get_object_or_404(ChoixReponse, id=item["choix_id"], question=question)
 
             Reponse.objects.update_or_create(
@@ -83,7 +101,7 @@ def soumettre_reponses(request, evaluation_id):
                 defaults={"choix": choix},
             )
 
-    total_questions = Question.objects.count()
+    total_questions = Question.objects.filter(theme__referentiel=evaluation.referentiel).count()
     nb_reponses = evaluation.reponses.count()
 
     resultat = {"nb_reponses": nb_reponses, "total_questions": total_questions, "termine": False}
@@ -104,7 +122,7 @@ def resultats_evaluation(request, evaluation_id):
     """Retourne les résultats détaillés (score total, par thème, par domaine, maturité) d'une évaluation."""
     evaluation = get_object_or_404(Evaluation, id=evaluation_id)
 
-    if request.user.role == "PME" and evaluation.pme != getattr(request.user, "pme", None):
+    if not _evaluation_accessible(request, evaluation):
         return Response({"detail": "Accès refusé."}, status=status.HTTP_403_FORBIDDEN)
 
     calc = ScoreCalculator(evaluation)
@@ -119,7 +137,7 @@ def telecharger_rapport_pdf(request, evaluation_id):
     """Génère et retourne le rapport PDF d'une évaluation terminée."""
     evaluation = get_object_or_404(Evaluation, id=evaluation_id)
 
-    if request.user.role == "PME" and evaluation.pme != getattr(request.user, "pme", None):
+    if not _evaluation_accessible(request, evaluation):
         return Response({"detail": "Accès refusé."}, status=status.HTTP_403_FORBIDDEN)
 
     if evaluation.statut != Evaluation.STATUT_TERMINEE:
@@ -181,7 +199,12 @@ def segmentation_pme(request):
     if request.user.role not in ("CONSULTANT", "ADMIN"):
         return Response({"detail": "Accès réservé aux consultants et administrateurs."}, status=status.HTTP_403_FORBIDDEN)
 
-    n_clusters = int(request.GET.get("n_clusters", 3))
+    try:
+        n_clusters = int(request.GET.get("n_clusters", 3))
+    except (TypeError, ValueError):
+        return Response({"detail": "n_clusters doit être un entier entre 2 et 10."}, status=status.HTTP_400_BAD_REQUEST)
+    if not 2 <= n_clusters <= 10:
+        return Response({"detail": "n_clusters doit être compris entre 2 et 10."}, status=status.HTTP_400_BAD_REQUEST)
     resultat = AnalysePredictiveComparative.segmenter_pmes(n_clusters=n_clusters)
     return Response(resultat)
 

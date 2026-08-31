@@ -54,14 +54,15 @@ class SoumissionReponsesSerializer(serializers.Serializer):
 class EvaluationSerializer(serializers.ModelSerializer):
     pme_nom = serializers.CharField(source="pme.nom_entreprise", read_only=True)
     referentiel_nom = serializers.CharField(source="referentiel.nom", read_only=True)
+    reponses = ReponseSerializer(many=True, read_only=True)
 
     class Meta:
         model = Evaluation
         fields = [
             "id", "pme", "pme_nom", "referentiel", "referentiel_nom",
-            "date_debut", "date_fin", "statut", "score_total",
+            "date_debut", "date_fin", "statut", "score_total", "reponses",
         ]
-        read_only_fields = ["id", "pme_nom", "referentiel_nom", "date_debut", "date_fin", "score_total"]
+        read_only_fields = ["id", "pme_nom", "referentiel_nom", "date_debut", "date_fin", "score_total", "reponses"]
 
 class PointHistoriqueSerializer(serializers.Serializer):
     index = serializers.IntegerField()
