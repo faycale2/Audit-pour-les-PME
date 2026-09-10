@@ -47,62 +47,41 @@ def inscription(request):
     serializer = InscriptionSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     data = serializer.validated_data
-    
+
     role = data.get("role", User.ROLE_PME)
-    
+
     with transaction.atomic():
         user = User.objects.create_user(
-            username=data["email"], 
-            email=data["email"], 
-            password=data["password"], 
+            username=data["email"],
+            email=data["email"],
+            password=data["password"],
             role=role,
             first_name=data.get("first_name", ""),
-            last_name=data.get("last_name", "")
+            last_name=data.get("last_name", ""),
         )
-<<<<<<< HEAD
-        PME.objects.create(
-            utilisateur=user,
-            nom_entreprise=data["nom_entreprise"],
-            secteur=data.get("secteur", ""),
-        )
+        if role == User.ROLE_PME:
+            PME.objects.create(
+                utilisateur=user,
+                nom_entreprise=data.get("nom_entreprise", ""),
+                secteur=data.get("secteur", ""),
+            )
 
-    tokens = generer_tokens(user)
     return Response(
-        {**tokens, "role": user.role},
+        {**generer_tokens(user), "role": user.role, "user_id": user.id},
         status=status.HTTP_201_CREATED,
     )
 
 
-# accounts/views.py - Version corrigée de la fonction connexion
-
-=======
-        if role == User.ROLE_PME:
-            PME.objects.create(
-                utilisateur=user, 
-                nom_entreprise=data.get("nom_entreprise", ""), 
-                secteur=data.get("secteur", "")
-            )
-            
-    return Response({**generer_tokens(user), "role": user.role, "user_id": user.id}, status=status.HTTP_201_CREATED)
->>>>>>> origin/main
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def connexion(request):
     serializer = ConnexionSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     data = serializer.validated_data
-<<<<<<< HEAD
 
-    # Utiliser filter().first() au lieu de get() pour éviter MultipleObjectsReturned
-    user_obj = User.objects.filter(email=data["email"]).first()
-    if not user_obj:
-        return Response({"detail": "Identifiants invalides."}, status=status.HTTP_401_UNAUTHORIZED)
-
-    user = authenticate(username=user_obj.username, password=data["password"])
-=======
     user_obj = User.objects.filter(email__iexact=data["email"]).first()
     user = authenticate(username=user_obj.username, password=data["password"]) if user_obj else None
->>>>>>> origin/main
+
     if not user:
         return Response({"detail": "Identifiants invalides."}, status=status.HTTP_401_UNAUTHORIZED)
     return Response({**generer_tokens(user), "role": user.role, "user_id": user.id})
@@ -148,6 +127,7 @@ def profil(request):
         data["consultants"] = consultants
 
     return Response(data)
+
 
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
