@@ -10,6 +10,11 @@ NOMS_THEMES_ORDRE = [
     "Sécurité Physique et Infrastructure",
     "Incidents, Continuité et Conformité",
 ]
+NOMBRE_QUESTIONS_PAR_THEME = [7, 7, 8, 7]
+
+
+def _score_global_pondere(scores_themes):
+    return sum(score * nombre for score, nombre in zip(scores_themes, NOMBRE_QUESTIONS_PAR_THEME)) / sum(NOMBRE_QUESTIONS_PAR_THEME)
 
 
 def _simuler_trajectoire_pme(n_mois=24):
@@ -45,14 +50,14 @@ def generer_jeu_entrainement(n_pme=300, n_mois=24, horizon_mois=6, seuil_progres
 
         for t in range(3, n_mois - horizon_mois):
             themes_t = trajectoire[t]
-            score_global_t = sum(themes_t) / len(themes_t)
+            score_global_t = _score_global_pondere(themes_t)
 
             themes_t_moins_3 = trajectoire[t - 3]
-            score_t_moins_3 = sum(themes_t_moins_3) / len(themes_t_moins_3)
+            score_t_moins_3 = _score_global_pondere(themes_t_moins_3)
             tendance_recente = (score_global_t - score_t_moins_3) / 3
 
             themes_futur = trajectoire[t + horizon_mois]
-            score_futur = sum(themes_futur) / len(themes_futur)
+            score_futur = _score_global_pondere(themes_futur)
 
             label = 1 if (score_futur - score_global_t) >= seuil_progression else 0
 

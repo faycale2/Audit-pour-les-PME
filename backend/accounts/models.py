@@ -31,6 +31,7 @@ class PME(models.Model):
     utilisateur = models.OneToOneField(User, on_delete=models.CASCADE, related_name="pme")
     nom_entreprise = models.CharField(max_length=200)
     secteur = models.CharField(max_length=150, blank=True)
+    photo_profil = models.ImageField(upload_to="profils/", blank=True, null=True)
     date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -67,3 +68,74 @@ class ConsultantPME(models.Model):
 
     class Meta:
         unique_together = ("consultant", "pme")
+
+
+
+class FAQEntry(models.Model):
+    """
+    Entrée de la base de connaissances du chatbot.
+    Recherche simple par mots-clés, pas de NLP complexe dans cette version.
+    """
+
+    titre = models.CharField(max_length=200, help_text="Ex: Pare-feu, Phishing, VPN")
+    mots_cles = models.CharField(
+        max_length=300,
+        help_text="Mots séparés par des virgules, utilisés pour la recherche (ex: pare-feu, firewall, protection réseau)",
+    )
+    reponse = models.TextField()
+
+    def __str__(self):
+        return self.titre		
+
+
+class DemandeAccompagnement(models.Model):
+    """Demande d'aide d'une PME, suivie par un consultant."""
+
+    STATUT_NOUVELLE = "NOUVELLE"
+    STATUT_EN_COURS = "EN_COURS"
+    STATUT_RESOLUE = "RESOLUE"
+    STATUT_CHOICES = [
+        (STATUT_NOUVELLE, "Nouvelle"),
+        (STATUT_EN_COURS, "En cours"),
+        (STATUT_RESOLUE, "Résolue"),
+    ]
+
+    pme = models.ForeignKey(PME, on_delete=models.CASCADE, related_name="demandes_accompagnement")
+    consultant = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="demandes_accompagnement")
+    commentaire = models.TextField()
+    reponse = models.TextField(blank=True)
+    statut = models.CharField(max_length=20, choices=STATUT_CHOICES, default=STATUT_NOUVELLE)
+    date_creation = models.DateTimeField(auto_now_add=True)
+    date_modification = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-date_creation"]
+
+    def __str__(self):
+        return f"Demande {self.pme.nom_entreprise} - {self.get_statut_display()}"
+
+
+class Message(models.Model):
+    """Message privé regroupé dans la conversation d'une PME."""
+
+    expediteur = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_envoyes")
+    destinataire = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_recus")
+    pme_concernee = models.ForeignKey(PME, on_delete=models.CASCADE, related_name="messages")
+    contenu = models.TextField()
+    date_envoi = models.DateTimeField(auto_now_add=True)
+    lu = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["date_envoi"]
+
+    def __str__(self):
+        return f"Message {self.pme_concernee} - {self.date_envoi:%d/%m/%Y %H:%M}"
+
+
+class JetonReinitialisation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="jetons_reinitialisation")
+    token = models.CharField(max_length=128, unique=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-date_creation"]
