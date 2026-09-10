@@ -1,9 +1,17 @@
+// src/pages/Resultats.jsx - Version Premium
 import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import { getResultatsEvaluation, getRapportPdfUrl } from "../api/referentielApi";
 import "./Resultats.css";
-import { useParams, Link } from "react-router-dom";
 
 const NOMS_DOMAINES = { ISO_27001: "ISO/IEC 27001", NIST_CSF: "NIST CSF", LOI_09_08: "Loi 09-08" };
+const LEVEL_COLORS = {
+  1: { bg: '#FFE5E5', text: '#D94444' },
+  2: { bg: '#FFF3CD', text: '#E8A838' },
+  3: { bg: '#D1ECF1', text: '#1E88E5' },
+  4: { bg: '#D4EDDA', text: '#0E8C5A' },
+  5: { bg: '#C3E6CB', text: '#0A6B47' },
+};
 
 function Resultats() {
   const { evaluationId } = useParams();
@@ -25,11 +33,13 @@ function Resultats() {
     charger();
   }, [evaluationId]);
 
-  if (chargement) return <div className="etat-page">Calcul des résultats…</div>;
-  if (erreur) return <div className="etat-page etat-erreur">{erreur}</div>;
+  if (chargement) return <div className="loading-container">Calcul des résultats...</div>;
+  if (erreur) return <div className="error-container">{erreur}</div>;
 
   const { score_total, score_maximum, maturite, scores_par_theme, scores_par_domaine } = resultats;
   const pourcentageGlobal = Math.round((score_total / score_maximum) * 100);
+  const level = maturite.niveau;
+  const levelColor = LEVEL_COLORS[level] || LEVEL_COLORS[3];
 
   const telechargerPdf = async () => {
     const token = localStorage.getItem("access_token");
@@ -47,25 +57,44 @@ function Resultats() {
 
   return (
     <div className="resultats-page">
-      <span className="eyebrow">Rapport d'évaluation</span>
-      <h1>Résultats de votre audit</h1>
+      <div className="resultats-header">
+        <span className="eyebrow">Rapport d'évaluation</span>
+        <h1>Résultats de votre audit</h1>
+      </div>
 
-      <div className="sceau-bloc">
-        <div className="sceau">
-          <span className="sceau-niveau">{maturite.niveau}</span>
-          <span className="sceau-label">/ 5</span>
+      {/* Score Card */}
+      <div className="score-card-premium">
+        <div className={`score-circle level-${level}`}>
+          <span className="level-number">{level}</span>
+          <span className="level-label">/ 5</span>
         </div>
-        <div className="sceau-details">
-          <p className="sceau-titre">{maturite.libelle}</p>
-          <p className="sceau-score">
-            <span className="mono">{score_total}</span> / {score_maximum} points ({pourcentageGlobal}%)
-          </p>
+        <div className="score-details">
+          <div className="level-title">{maturite.libelle}</div>
+          <div className="score-value">
+            <strong>{score_total}</strong> / {score_maximum} points ({pourcentageGlobal}%)
+          </div>
+          <div style={{ 
+            width: '100%', 
+            height: '4px', 
+            background: '#EDF2F7', 
+            borderRadius: '2px',
+            marginTop: '8px'
+          }}>
+            <div style={{
+              width: `${pourcentageGlobal}%`,
+              height: '100%',
+              background: `linear-gradient(90deg, ${levelColor.text}, ${levelColor.text}dd)`,
+              borderRadius: '2px',
+              transition: 'width 1s ease'
+            }} />
+          </div>
         </div>
       </div>
 
-      <section className="section-bloc">
-        <h2>Scores par thème</h2>
-        <table className="tableau-resultats">
+      {/* Scores par thème */}
+      <div className="result-section">
+        <h3>Scores par thème</h3>
+        <table className="result-table">
           <thead>
             <tr><th>Thème</th><th>Score</th><th>%</th></tr>
           </thead>
@@ -73,22 +102,26 @@ function Resultats() {
             {scores_par_theme.map((t) => (
               <tr key={t.theme_code}>
                 <td>{t.theme_nom}</td>
-                <td className="mono">{t.score} / {t.score_max}</td>
+                <td>{t.score} / {t.score_max}</td>
                 <td>
-                  <div className="mini-barre">
-                    <div className="mini-barre-remplie" style={{ width: `${t.pourcentage}%` }} />
-                  </div>
-                  <span className="mono mini-pourcentage">{t.pourcentage}%</span>
+                  <span className="theme-score-bar">
+                    <span className="fill" style={{ 
+                      width: `${t.pourcentage}%`,
+                      background: `linear-gradient(90deg, #1E88E5, #42A5F5)`
+                    }} />
+                  </span>
+                  {t.pourcentage}%
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </section>
+      </div>
 
-      <section className="section-bloc">
-        <h2>Scores par domaine normatif</h2>
-        <table className="tableau-resultats">
+      {/* Scores par domaine */}
+      <div className="result-section">
+        <h3>Scores par domaine normatif</h3>
+        <table className="result-table">
           <thead>
             <tr><th>Domaine</th><th>Score</th><th>%</th></tr>
           </thead>
@@ -98,19 +131,31 @@ function Resultats() {
               .map(([code, d]) => (
                 <tr key={code}>
                   <td>{NOMS_DOMAINES[code] || code}</td>
-                  <td className="mono">{d.score} / {d.score_max}</td>
-                  <td className="mono">{d.pourcentage}%</td>
+                  <td>{d.score} / {d.score_max}</td>
+                  <td>
+                    <span className="theme-score-bar">
+                      <span className="fill" style={{ 
+                        width: `${d.pourcentage}%`,
+                        background: `linear-gradient(90deg, #D4B85A, #C9A84C)`
+                      }} />
+                    </span>
+                    {d.pourcentage}%
+                  </td>
                 </tr>
               ))}
           </tbody>
         </table>
-      </section>
-      <Link to="/evolution" className="btn btn-secondaire" style={{ marginBottom: 12, display: "inline-block", textDecoration: "none" }}>
-        Voir mon évolution et me comparer au marché →
-      </Link>
-      <button className="btn btn-primaire btn-pdf" onClick={telechargerPdf}>
-        Télécharger le rapport PDF complet
-      </button>
+      </div>
+
+      {/* Actions */}
+      <div className="actions-row">
+        <Link to="/evolution" className="btn btn-evolution">
+          📈 Voir mon évolution
+        </Link>
+        <button className="btn btn-pdf" onClick={telechargerPdf}>
+          📄 Télécharger le rapport PDF
+        </button>
+      </div>
     </div>
   );
 }

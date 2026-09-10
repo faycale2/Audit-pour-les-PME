@@ -1,0 +1,295 @@
+/* src/pages/Inscription.css */
+.inscription-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #F8FAFC 0%, #EDF2F7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.inscription-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1100px;
+  width: 100%;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 24px 80px rgba(10, 22, 40, 0.12);
+  overflow: hidden;
+  min-height: 600px;
+}
+
+/* ===== FORMULAIRE ===== */
+.inscription-form-wrapper {
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inscription-header {
+  margin-bottom: 32px;
+}
+
+.back-link {
+  color: #1E88E5;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 16px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #1565C0;
+  text-decoration: underline;
+}
+
+.inscription-header h1 {
+  font-family: "Spectral", Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #0D1B2A;
+  margin: 0 0 8px;
+}
+
+.inscription-header p {
+  color: #6B8096;
+  font-size: 15px;
+  margin: 0;
+}
+
+.inscription-form {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1B2D42;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #EDF2F7;
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: "Inter", sans-serif;
+  transition: all 0.2s ease;
+  background: #F8FAFC;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #1E88E5;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.1);
+}
+
+.input-hint {
+  display: block;
+  font-size: 12px;
+  color: #A0B4C6;
+  margin-top: 4px;
+}
+
+.message-error {
+  padding: 12px 16px;
+  background: #FEF3F2;
+  color: #D94444;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  border: 1px solid #FEE2E2;
+}
+
+.message-success {
+  padding: 12px 16px;
+  background: #ECFDF5;
+  color: #0E8C5A;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  border: 1px solid #D1FAE5;
+}
+
+.btn-inscription {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #1E88E5, #1565C0);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-inscription:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(30, 136, 229, 0.35);
+}
+
+.btn-inscription:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-footer {
+  text-align: center;
+  color: #6B8096;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.form-footer a {
+  color: #1E88E5;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== SECTION INFO ===== */
+.inscription-info {
+  background: linear-gradient(145deg, #0D1B2A 0%, #1A3660 100%);
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+}
+
+.info-content {
+  max-width: 360px;
+}
+
+.info-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.info-content h2 {
+  font-family: "Spectral", Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 24px;
+  line-height: 1.2;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+}
+
+.info-list li {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.info-list li:last-child {
+  border-bottom: none;
+}
+
+.info-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.info-list li strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.info-list li p {
+  font-size: 13px;
+  opacity: 0.7;
+  margin: 2px 0 0;
+}
+
+.info-securite {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.info-securite span {
+  font-size: 28px;
+}
+
+.info-securite strong {
+  display: block;
+  font-size: 14px;
+}
+
+.info-securite p {
+  font-size: 13px;
+  opacity: 0.6;
+  margin: 2px 0 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .inscription-container {
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+  }
+
+  .inscription-form-wrapper {
+    padding: 32px 24px;
+  }
+
+  .inscription-info {
+    padding: 32px 24px;
+  }
+
+  .info-content {
+    max-width: 100%;
+  }
+
+  .info-content h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .inscription-form-wrapper {
+    padding: 24px 16px;
+  }
+
+  .inscription-header h1 {
+    font-size: 26px;
+  }
+
+  .inscription-info {
+    padding: 24px 16px;
+  }
+}

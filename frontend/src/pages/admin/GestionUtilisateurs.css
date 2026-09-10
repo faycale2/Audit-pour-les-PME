@@ -1,0 +1,106 @@
+/* src/pages/admin/GestionUtilisateurs.css */
+.gestion-utilisateurs {
+  animation: fadeIn 0.3s ease;
+}
+
+.gestion-utilisateurs h2 {
+  font-family: "Spectral", serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #0A1628;
+  margin: 0 0 24px;
+}
+
+.users-table-wrapper {
+  background: #fff;
+  border: 1px solid #E8ECEA;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table thead {
+  background: #F8F9FA;
+}
+
+.users-table th {
+  text-align: left;
+  padding: 14px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6B7B82;
+  border-bottom: 1px solid #E8ECEA;
+}
+
+.users-table td {
+  padding: 14px 20px;
+  font-size: 14px;
+  color: #2B3A42;
+  border-bottom: 1px solid #F4F6F8;
+}
+
+.users-table tr:last-child td {
+  border-bottom: none;
+}
+
+.users-table tr:hover {
+  background: #F8F9FA;
+}
+
+.mono {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: #6B7B82;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.role-badge.role-pme {
+  background: #DCEBE9;
+  color: #0A423D;
+}
+
+.role-badge.role-consultant {
+  background: #F1E7D6;
+  color: #8D7A4A;
+}
+
+.role-badge.role-admin {
+  background: #BBDEFB;
+  color: #0D47A1;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.status-active {
+  background: #E1EEE5;
+  color: #3F7D58;
+}
+
+.status-badge.status-inactive {
+  background: #F6E2DF;
+  color: #B23A2F;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

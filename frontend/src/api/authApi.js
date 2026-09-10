@@ -1,3 +1,4 @@
+// src/api/authApi.js
 import axiosClient from "./axiosClient";
 
 export const connexion = async (email, password) => {

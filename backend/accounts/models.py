@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
+
+
 class User(AbstractUser):
     """Utilisateur étendu avec un rôle, pour gérer les permissions (RBAC)."""
 
@@ -17,6 +19,7 @@ class User(AbstractUser):
     ]
 
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default=ROLE_PME)
+    email = models.EmailField(unique=True)  # 👈 Ajouter unique=True
 
     def __str__(self):
         return f"{self.username} ({self.role})"

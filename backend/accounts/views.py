@@ -50,6 +50,8 @@ def inscription(request):
     )
 
 
+# accounts/views.py - Version corrigée de la fonction connexion
+
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def connexion(request):
@@ -60,9 +62,9 @@ def connexion(request):
 
     data = serializer.validated_data
 
-    try:
-        user_obj = User.objects.get(email=data["email"])
-    except User.DoesNotExist:
+    # Utiliser filter().first() au lieu de get() pour éviter MultipleObjectsReturned
+    user_obj = User.objects.filter(email=data["email"]).first()
+    if not user_obj:
         return Response({"detail": "Identifiants invalides."}, status=status.HTTP_401_UNAUTHORIZED)
 
     user = authenticate(username=user_obj.username, password=data["password"])

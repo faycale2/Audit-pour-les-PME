@@ -1,14 +1,23 @@
+// src/components/RouteProtegee.jsx
 import { Navigate } from "react-router-dom";
-import { estConnecte } from "../api/authApi";
+import { useAuth } from "../context/AuthContext";
 
-/**
- * Empêche l'accès à une page si l'utilisateur n'est pas connecté.
- * Usage : <RouteProtegee><MaPage /></RouteProtegee>
- */
-function RouteProtegee({ children }) {
-  if (!estConnecte()) {
+function RouteProtegee({ children, allowedRoles = [] }) {
+  const { isAuthenticated, role } = useAuth();
+
+  console.log("🔒 RouteProtegee - État:", { isAuthenticated, role });
+
+  if (!isAuthenticated) {
+    console.log("❌ Non authentifié, redirection vers /connexion");
     return <Navigate to="/connexion" replace />;
   }
+
+  if (allowedRoles.length > 0 && !allowedRoles.includes(role)) {
+    console.log(`❌ Rôle ${role} non autorisé pour cette route`);
+    return <Navigate to="/" replace />;
+  }
+
+  console.log("✅ Accès autorisé");
   return children;
 }
 
