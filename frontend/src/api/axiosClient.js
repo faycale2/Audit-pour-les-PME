@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://127.0.0.1:8000/api";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
 
 const axiosClient = axios.create({
   baseURL: BASE_URL,
@@ -31,11 +31,15 @@ axiosClient.interceptors.response.use(
             refresh: refreshToken,
           });
           localStorage.setItem("access_token", data.access);
+          if (data.refresh) {
+            localStorage.setItem("refresh_token", data.refresh);
+          }
           originalRequest.headers.Authorization = `Bearer ${data.access}`;
           return axiosClient(originalRequest);
         } catch (refreshError) {
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
+          localStorage.removeItem("role");
           window.location.href = "/connexion";
           return Promise.reject(refreshError);
         }

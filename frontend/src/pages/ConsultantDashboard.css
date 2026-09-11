@@ -1,0 +1,1044 @@
+/* =========================================================
+   CONSULTANT DASHBOARD
+   ========================================================= */
+
+.role-page {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 40px 32px 60px;
+  box-sizing: border-box;
+  color: #1f2937;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.page-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 34px;
+}
+
+.page-heading > div {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: #0f766e;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 32px;
+  height: 3px;
+  border-radius: 999px;
+  background: #0f766e;
+}
+
+.page-heading h1 {
+  margin: 0;
+  color: #1f2937;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.15rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.page-heading p {
+  margin: 10px 0 0;
+  max-width: 680px;
+  color: #6b7280;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.heading-count {
+  flex-shrink: 0;
+  min-width: 110px;
+  padding: 10px 18px;
+  border: 1px solid #cfe5e1;
+  border-radius: 999px;
+  background: #f0fdfa;
+  color: #0f766e;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+
+/* =========================================================
+   ÉTATS
+   ========================================================= */
+
+.etat-page {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.etat-erreur {
+  color: #b91c1c;
+}
+
+
+/* =========================================================
+   EMPTY / INFO
+   ========================================================= */
+
+.empty-state,
+.note-info {
+  border: 1px solid #dfe7e5;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(15, 118, 110, 0.05);
+}
+
+.empty-state {
+  padding: 55px 30px;
+  text-align: center;
+}
+
+.empty-state h2 {
+  margin: 0 0 10px;
+  color: #1f2937;
+  font-size: 1.25rem;
+}
+
+.empty-state p {
+  max-width: 500px;
+  margin: 0 auto;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.note-info {
+  margin: 0;
+  padding: 22px;
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   MES PME
+   ========================================================= */
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.data-card {
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  border: 1px solid #dfe7e5;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(15, 118, 110, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.data-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #0f766e;
+}
+
+.data-card:hover {
+  border-color: #b9d9d4;
+  box-shadow: 0 14px 32px rgba(15, 118, 110, 0.09);
+  transform: translateY(-2px);
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.card-kicker {
+  display: block;
+  margin-bottom: 7px;
+  color: #0f766e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.card-top h2 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.18rem;
+  line-height: 1.35;
+}
+
+
+/* =========================================================
+   STATUTS
+   ========================================================= */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-height: 30px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-ok,
+.status-acceptee {
+  border: 1px solid #b7dfd2;
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.status-warn,
+.status-en_attente {
+  border: 1px solid #f3d8a3;
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.status-refusee {
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+
+/* =========================================================
+   MÉTRIQUES
+   ========================================================= */
+
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #edf2f1;
+}
+
+.metric-row > div {
+  min-width: 0;
+}
+
+.metric-row span {
+  display: block;
+  margin-bottom: 5px;
+  color: #8a9392;
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+.metric-row strong {
+  display: block;
+  overflow: hidden;
+  color: #1f2937;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ACTIONS PME
+   ========================================================= */
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #edf2f1;
+}
+
+.card-actions a,
+.lien-detail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid #cfe5e1;
+  border-radius: 9px;
+  background: #f0fdfa;
+  color: #0f766e;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.lien-detail {
+  cursor: pointer;
+}
+
+.card-actions a:hover,
+.lien-detail:hover {
+  border-color: #0f766e;
+  background: #0f766e;
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   HISTORIQUE / MESSAGERIE
+   ========================================================= */
+
+.consultant-section,
+.messagerie-consultant {
+  padding: 26px;
+  border: 1px solid #dfe7e5;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(15, 118, 110, 0.05);
+}
+
+.conversation-selector {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  color: #374151;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.conversation-selector select {
+  min-width: 260px;
+  height: 42px;
+  padding: 0 38px 0 13px;
+  border: 1px solid #d5dfdd;
+  border-radius: 9px;
+  outline: none;
+  background: #ffffff;
+  color: #1f2937;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.conversation-selector select:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+
+/* =========================================================
+   DEMANDES D'ACCOMPAGNEMENT
+   ========================================================= */
+
+.requests-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  /* IMPORTANT :
+     pas de carte extérieure ici */
+  width: 100%;
+}
+
+
+/* Une seule carte par demande */
+
+.request-card {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 25px 28px;
+  border: 1px solid #dfe7e5;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(15, 118, 110, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.request-card:hover {
+  border-color: #c6ddd9;
+  box-shadow: 0 14px 32px rgba(15, 118, 110, 0.08);
+}
+
+
+/* Ligne teal à gauche */
+
+.request-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #0f766e;
+}
+
+
+/* En-tête de la demande */
+
+.support-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.support-item-top .card-kicker {
+  margin-bottom: 8px;
+}
+
+.support-item-top strong {
+  display: block;
+  color: #111827;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+
+/* Date */
+
+.request-date {
+  margin: 7px 0 20px;
+  color: #8a9392;
+  font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   MESSAGE DE LA PME
+   ========================================================= */
+
+.request-message {
+  margin-top: 4px;
+  padding: 16px 18px;
+  border: 1px solid #e2ecea;
+  border-radius: 12px;
+  background: #f8fbfa;
+}
+
+.request-message > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #0f766e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.request-message p {
+  margin: 0;
+  color: #374151;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+
+/* =========================================================
+   RÉPONSE DU CONSULTANT
+   ========================================================= */
+
+.request-decision {
+  margin-top: 20px;
+}
+
+.request-decision label {
+  display: block;
+  margin-bottom: 8px;
+  color: #374151;
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+
+.request-decision textarea {
+  display: block;
+  width: 100%;
+  min-height: 105px;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  resize: vertical;
+  border: 1px solid #d5dfdd;
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  color: #1f2937;
+  font-family: inherit;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.request-decision textarea::placeholder {
+  color: #a0aaa8;
+}
+
+.request-decision textarea:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+
+/* =========================================================
+   BOUTONS
+   ========================================================= */
+
+.request-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.request-btn {
+  min-height: 40px;
+  padding: 9px 17px;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 0.83rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.request-btn:active {
+  transform: translateY(1px);
+}
+
+
+/* Refuser */
+
+.request-btn-refuse {
+  border: 1px solid #fecaca;
+  background: #ffffff;
+  color: #b91c1c;
+}
+
+.request-btn-refuse:hover {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+
+/* Accepter */
+
+.request-btn-accept {
+  border: 1px solid #0f766e;
+  background: #0f766e;
+  color: #ffffff;
+}
+
+.request-btn-accept:hover {
+  border-color: #0d665f;
+  background: #0d665f;
+  box-shadow: 0 5px 12px rgba(15, 118, 110, 0.18);
+}
+
+
+/* =========================================================
+   RÉPONSE APRÈS TRAITEMENT
+   ========================================================= */
+
+.support-answer {
+  margin-top: 18px;
+  padding: 15px 18px;
+  border: 1px solid #cfe5e1;
+  border-left: 3px solid #0f766e;
+  border-radius: 0 10px 10px 0;
+  background: #f0fdfa;
+}
+
+.support-answer strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #0f766e;
+  font-size: 0.81rem;
+}
+
+.support-answer p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.87rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+  .role-page {
+    padding: 32px 22px 50px;
+  }
+
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-heading {
+    align-items: flex-start;
+  }
+}
+
+
+@media (max-width: 650px) {
+  .role-page {
+    padding: 26px 16px 40px;
+  }
+
+  .page-heading {
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 25px;
+  }
+
+  .page-heading h1 {
+    font-size: 1.75rem;
+  }
+
+  .heading-count {
+    align-self: flex-start;
+  }
+
+  .consultant-section,
+  .messagerie-consultant {
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .data-card,
+  .request-card {
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .card-top,
+  .support-item-top {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .status {
+    align-self: flex-start;
+  }
+
+  .metric-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .conversation-selector {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .conversation-selector select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .request-actions {
+    flex-direction: column-reverse;
+  }
+
+  .request-btn {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .page-heading h1 {
+    font-size: 1.55rem;
+  }
+
+  .card-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .card-actions a,
+  .lien-detail {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+
+/* =========================================================
+   FILTRES DES DEMANDES
+   ========================================================= */
+
+.consultant-request-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.consultant-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 7px 13px;
+  border: 1px solid #d5dfdd;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #5f6b69;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.consultant-filter-btn span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: #f1f5f4;
+  color: #6b7280;
+  font-size: 0.7rem;
+}
+
+.consultant-filter-btn:hover {
+  border-color: #b9d9d4;
+  background: #f8fbfa;
+  color: #0f766e;
+}
+
+.consultant-filter-btn.active {
+  border-color: #0f766e;
+  background: #0f766e;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.14);
+}
+
+.consultant-filter-btn.active span {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   ACTIONS EN-TÊTE DES DEMANDES
+   ========================================================= */
+
+.consultant-request-top-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.consultant-delete-btn,
+.consultant-end-btn {
+  min-height: 30px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.consultant-delete-btn {
+  border: 1px solid #fecaca;
+  background: #ffffff;
+  color: #b91c1c;
+}
+
+.consultant-delete-btn:hover {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+.consultant-end-btn {
+  border: 1px solid #d6c7a0;
+  background: #fffbeb;
+  color: #9a6700;
+}
+
+.consultant-end-btn:hover {
+  border-color: #c49a43;
+  background: #fef3c7;
+  color: #7c5200;
+}
+
+.consultant-delete-btn:active,
+.consultant-end-btn:active {
+  transform: translateY(1px);
+}
+
+.consultant-delete-btn:disabled,
+.consultant-end-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MODALES DE CONFIRMATION
+   ========================================================= */
+
+.consultant-delete-modal-overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background: rgba(17, 24, 39, 0.48);
+  backdrop-filter: blur(3px);
+  animation: consultantModalOverlayIn 0.18s ease;
+}
+
+.consultant-delete-modal {
+  width: min(100%, 455px);
+  padding: 28px;
+  box-sizing: border-box;
+  border: 1px solid #dfe7e5;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 24px 60px rgba(17, 24, 39, 0.18);
+  animation: consultantModalIn 0.2s ease;
+}
+
+.consultant-delete-modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 17px;
+  border: 1px solid #f3d8a3;
+  border-radius: 50%;
+  background: #fffbeb;
+  color: #b45309;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.consultant-delete-modal h2 {
+  margin: 0 0 9px;
+  color: #1f2937;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.consultant-delete-modal > p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.consultant-delete-modal-request {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 18px;
+  padding: 13px 15px;
+  border: 1px solid #e2ecea;
+  border-radius: 11px;
+  background: #f8fbfa;
+}
+
+.consultant-delete-modal-request span {
+  color: #0f766e;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.consultant-delete-modal-request strong {
+  overflow: hidden;
+  color: #1f2937;
+  font-size: 0.9rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.consultant-delete-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-top: 22px;
+}
+
+.consultant-modal-cancel-btn,
+.consultant-modal-delete-btn {
+  min-height: 40px;
+  padding: 9px 15px;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 0.81rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.consultant-modal-cancel-btn {
+  border: 1px solid #d5dfdd;
+  background: #ffffff;
+  color: #4b5563;
+}
+
+.consultant-modal-cancel-btn:hover {
+  border-color: #b9d9d4;
+  background: #f8fbfa;
+  color: #0f766e;
+}
+
+.consultant-modal-delete-btn {
+  border: 1px solid #b91c1c;
+  background: #b91c1c;
+  color: #ffffff;
+}
+
+.consultant-modal-delete-btn:hover {
+  border-color: #991b1b;
+  background: #991b1b;
+  box-shadow: 0 5px 12px rgba(185, 28, 28, 0.16);
+}
+
+.consultant-modal-cancel-btn:disabled,
+.consultant-modal-delete-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@keyframes consultantModalOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes consultantModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — DEMANDES
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .consultant-request-top-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .consultant-request-filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 3px;
+  }
+
+  .consultant-filter-btn {
+    flex-shrink: 0;
+  }
+
+  .consultant-delete-modal {
+    padding: 23px;
+    border-radius: 15px;
+  }
+
+  .consultant-delete-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .consultant-modal-cancel-btn,
+  .consultant-modal-delete-btn {
+    width: 100%;
+  }
+}

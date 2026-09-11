@@ -31,6 +31,7 @@ function Resultats() {
   const { score_total, score_maximum, maturite, scores_par_theme, scores_par_domaine } = resultats;
   const pourcentageGlobal = Math.round((score_total / score_maximum) * 100);
 
+  const role = localStorage.getItem("role");
   const telechargerPdf = async () => {
     const token = localStorage.getItem("access_token");
     const response = await fetch(getRapportPdfUrl(evaluationId), {
@@ -105,12 +106,21 @@ function Resultats() {
           </tbody>
         </table>
       </section>
-      <Link to="/evolution" className="btn btn-secondaire" style={{ marginBottom: 12, display: "inline-block", textDecoration: "none" }}>
-        Voir mon évolution et me comparer au marché →
-      </Link>
+      {role === "PME" && (
+        <Link to="/evolution" className="btn btn-secondaire">
+          Voir mon évolution et me comparer au marché →
+        </Link>
+      )}
+      {role !== "PME" && (
+        <Link to="/consultant" className="btn btn-secondaire">
+          Retour au portefeuille
+        </Link>
+      )}
+      <div className="resultats-actions">
       <button className="btn btn-primaire btn-pdf" onClick={telechargerPdf}>
         Télécharger le rapport PDF complet
       </button>
+      </div>
     </div>
   );
 }

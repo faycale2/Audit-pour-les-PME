@@ -1,0 +1,940 @@
+
+/* =========================================
+   PAGE UTILISATEURS
+   ========================================= */
+
+.users-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 40px;
+  box-sizing: border-box;
+  background: #f6f8fb;
+  color: #172033;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.users-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #6366f1;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.users-header h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.users-header p {
+  margin: 8px 0 0;
+  color: #697386;
+  font-size: 15px;
+}
+
+.users-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 110px;
+  height: 85px;
+
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 16px;
+
+  box-shadow: 0 4px 18px rgba(20, 30, 55, 0.05);
+}
+
+.users-count strong {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.users-count span {
+  color: #7b8496;
+  font-size: 13px;
+}
+
+/* =========================================
+   ALERTES
+   ========================================= */
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 13px 16px;
+  margin-bottom: 20px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.alert-error {
+  background: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fecdd3;
+}
+
+.alert-success {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+/* =========================================
+   TOOLBAR
+   ========================================= */
+
+.users-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 360px;
+
+  padding: 0 15px;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border: 1px solid #e1e5eb;
+  border-radius: 12px;
+
+  transition: 0.2s;
+}
+
+.search-box:focus-within {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.search-box span {
+  color: #8992a3;
+  font-size: 22px;
+}
+
+.search-box input {
+  width: 100%;
+  height: 45px;
+
+  border: none;
+  outline: none;
+
+  font-size: 14px;
+
+  background: transparent;
+}
+
+.results-count {
+  color: #778196;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================================
+   TABLE
+   ========================================= */
+
+.users-card {
+  overflow: hidden;
+
+  background: #ffffff;
+  border: 1px solid #e6e9ef;
+  border-radius: 18px;
+
+  box-shadow: 0 8px 30px rgba(20, 30, 55, 0.05);
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table thead {
+  background: #fafbfc;
+}
+
+.users-table th {
+  padding: 17px 22px;
+
+  color: #747d8f;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-align: left;
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.users-table td {
+  padding: 18px 22px;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.users-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.users-table tbody tr:hover {
+  background: #fafbff;
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================================
+   UTILISATEUR
+   ========================================= */
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: #eef2ff;
+  color: #4f46e5;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.user-info strong {
+  display: block;
+  margin-bottom: 3px;
+
+  font-size: 14px;
+}
+
+.user-info span {
+  color: #98a1b2;
+  font-size: 12px;
+}
+
+.email {
+  color: #5e687a;
+  font-size: 14px;
+}
+
+/* =========================================
+   ROLE
+   ========================================= */
+
+.role-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 6px 10px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.role-admin {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+
+.role-consultant {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.role-pme {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.role-select {
+  padding: 7px 10px;
+
+  border: 1px solid #e2e6ec;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #4d5667;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.role-select:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+/* =========================================
+   ACTIONS
+   ========================================= */
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 8px 12px;
+
+  border: 1px solid #fee2e2;
+  border-radius: 9px;
+
+  background: #fff7f7;
+  color: #dc2626;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #fee2e2;
+}
+
+.delete-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   LOADING / EMPTY
+   ========================================= */
+
+.loading-state,
+.empty-state {
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #7b8496;
+}
+
+.loading-state p,
+.empty-state p {
+  margin: 10px 0 0;
+  font-size: 14px;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+
+  border: 3px solid #e5e7eb;
+  border-top-color: #6366f1;
+
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.empty-icon {
+  font-size: 40px;
+  margin-bottom: 5px;
+}
+
+.empty-state h3 {
+  margin: 0;
+  color: #273044;
+}
+
+/* =========================================
+   MODALE MODIFICATION DU ROLE
+   ========================================= */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 9998;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  box-sizing: border-box;
+
+  background: rgba(15, 23, 42, 0.5);
+
+  backdrop-filter: blur(4px);
+}
+
+.confirmation-modal {
+  width: 390px;
+  max-width: calc(100vw - 40px);
+
+  padding: 28px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  text-align: center;
+
+  box-shadow: 0 25px 70px rgba(15, 23, 42, 0.2);
+
+  animation: modalIn 0.2s ease;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+
+  margin: 0 auto 16px;
+
+  border-radius: 50%;
+
+  font-size: 21px;
+}
+
+.role-icon {
+  background: #eef2ff;
+}
+
+.confirmation-modal h2 {
+  margin: 0 0 10px;
+
+  color: #182033;
+
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.confirmation-modal > p {
+  margin: 0;
+
+  color: #697386;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.confirmation-modal p strong {
+  color: #111827;
+}
+
+/* =========================================
+   CHANGEMENT DE ROLE
+   ========================================= */
+
+.role-change {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+
+  margin-top: 20px;
+  padding: 14px;
+
+  background: #f8fafc;
+
+  border: 1px solid #edf0f4;
+  border-radius: 12px;
+}
+
+.role-change div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.role-change span {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.role-change strong {
+  color: #1e293b;
+  font-size: 13px;
+}
+
+.arrow {
+  color: #64748b;
+  font-size: 20px;
+}
+
+/* =========================================
+   BOUTONS MODALE ROLE
+   ========================================= */
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 24px;
+}
+
+.modal-actions button {
+  height: 40px;
+
+  padding: 0 16px;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.cancel-btn {
+  border: 1px solid #e1e5eb;
+
+  background: #f8fafc;
+  color: #475569;
+}
+
+.cancel-btn:hover {
+  background: #e2e8f0;
+}
+
+.confirm-btn {
+  border: none;
+
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.confirm-btn:hover {
+  background: #1d4ed8;
+}
+
+.modal-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   MODALE SUPPRESSION
+   ========================================= */
+
+.delete-modal-overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  background: rgba(15, 23, 42, 0.55);
+
+  z-index: 999999;
+
+  backdrop-filter: blur(4px);
+}
+
+.delete-confirmation-modal {
+  position: relative;
+
+  width: 380px;
+  max-width: calc(100vw - 40px);
+
+  padding: 26px 24px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 16px;
+
+  text-align: center;
+
+  box-shadow:
+    0 25px 70px rgba(15, 23, 42, 0.25),
+    0 8px 25px rgba(15, 23, 42, 0.08);
+
+  animation: deleteModalIn 0.18s ease-out;
+}
+
+@keyframes deleteModalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   ICONE SUPPRESSION
+   ========================================= */
+
+.delete-modal-icon {
+  width: 48px;
+  height: 48px;
+
+  margin: 0 auto 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fef2f2;
+  color: #dc2626;
+
+  font-size: 20px;
+}
+
+/* =========================================
+   CONTENU SUPPRESSION
+   ========================================= */
+
+.delete-confirmation-modal h2 {
+  margin: 0 0 10px;
+
+  color: #182033;
+
+  font-size: 19px;
+  font-weight: 700;
+
+  line-height: 1.3;
+}
+
+.delete-confirmation-modal p {
+  max-width: 320px;
+
+  margin: 0 auto;
+
+  color: #697386;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+.delete-confirmation-modal p strong {
+  color: #111827;
+  font-weight: 700;
+}
+
+/* =========================================
+   AVERTISSEMENT
+   ========================================= */
+
+.delete-warning {
+  margin-top: 16px;
+
+  padding: 10px 12px;
+
+  background: #fff7ed;
+
+  border: 1px solid #fed7aa;
+
+  border-radius: 9px;
+
+  color: #c2410c;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================================
+   BOUTONS SUPPRESSION
+   ========================================= */
+
+.delete-modal-actions {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 22px;
+}
+
+.delete-modal-actions button {
+  height: 40px;
+
+  min-width: 118px;
+
+  padding: 0 16px;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.delete-cancel-button {
+  border: 1px solid #e2e8f0;
+
+  background: #f8fafc;
+  color: #475569;
+}
+
+.delete-cancel-button:hover {
+  background: #e2e8f0;
+}
+
+.delete-confirm-button {
+  border: none;
+
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.delete-confirm-button:hover {
+  background: #b91c1c;
+}
+
+.delete-modal-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   RESPONSIVE 900px
+   ========================================= */
+
+@media (max-width: 900px) {
+  .users-page {
+    padding: 25px;
+  }
+
+  .users-header {
+    align-items: flex-start;
+  }
+
+  .role-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .role-select {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   RESPONSIVE 650px
+   ========================================= */
+
+@media (max-width: 650px) {
+  .users-page {
+    padding: 18px;
+  }
+
+  .users-header {
+    flex-direction: column;
+  }
+
+  .users-count {
+    width: 100%;
+    height: 70px;
+  }
+
+  .users-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .results-count {
+    text-align: right;
+  }
+}
+
+/* =========================================
+   RESPONSIVE MODALES
+   ========================================= */
+
+@media (max-width: 500px) {
+  .confirmation-modal,
+  .delete-confirmation-modal {
+    width: calc(100vw - 36px);
+    max-width: 350px;
+
+    padding: 24px 20px;
+
+    border-radius: 14px;
+  }
+
+  .modal-actions,
+  .delete-modal-actions {
+    flex-direction: column;
+  }
+
+  .modal-actions button,
+  .delete-modal-actions button {
+    width: 100%;
+  }
+
+  .role-change {
+    gap: 8px;
+  }
+}
+
+.delete-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+
+  width: 100vw !important;
+  height: 100vh !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: rgba(0, 0, 0, 0.6) !important;
+
+  z-index: 999999 !important;
+}
+
+.delete-confirmation-modal {
+  position: relative !important;
+
+  width: 400px !important;
+  max-width: calc(100vw - 40px) !important;
+
+  padding: 30px !important;
+
+  background: white !important;
+
+  border-radius: 16px !important;
+
+  box-sizing: border-box !important;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+
+  text-align: center !important;
+
+  z-index: 1000000 !important;
+}
+

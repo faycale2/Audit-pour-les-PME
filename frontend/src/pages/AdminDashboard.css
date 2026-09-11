@@ -1,0 +1,684 @@
+/* =========================================
+   PAGE DASHBOARD
+   ========================================= */
+
+.dashboard-page {
+  min-height: 100vh;
+  padding: 40px;
+  box-sizing: border-box;
+
+  background: #f6f8fb;
+  color: #172033;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.dashboard-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.dashboard-header p {
+  margin: 8px 0 0;
+
+  color: #697386;
+  font-size: 15px;
+}
+
+
+/* =========================================
+   EYEBROW
+   ========================================= */
+
+.eyebrow {
+  display: inline-block;
+
+  margin-bottom: 8px;
+
+  color: #6366f1;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================================
+   SYSTEM STATUS
+   ========================================= */
+
+.system-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px 13px;
+
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 10px;
+
+  color: #047857;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #10b981;
+
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+
+/* =========================================
+   METRICS
+   ========================================= */
+
+.dashboard-metrics {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 24px;
+}
+
+
+/* =========================================
+   METRIC CARD
+   ========================================= */
+
+.metric-card {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  min-height: 125px;
+
+  padding: 22px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e6e9ef;
+  border-radius: 16px;
+
+  box-shadow: 0 4px 18px rgba(20, 30, 55, 0.05);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 25px rgba(20, 30, 55, 0.08);
+}
+
+
+/* =========================================
+   METRIC ICON
+   ========================================= */
+
+.metric-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  border-radius: 13px;
+
+  font-size: 21px;
+}
+
+.metric-icon-pme {
+  background: #eef2ff;
+}
+
+.metric-icon-users {
+  background: #e0f2fe;
+}
+
+.metric-icon-sector {
+  background: #f3e8ff;
+}
+
+
+/* =========================================
+   METRIC CONTENT
+   ========================================= */
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-content > span {
+  margin-bottom: 3px;
+
+  color: #7b8496;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.metric-content strong {
+  color: #172033;
+
+  font-size: 30px;
+  font-weight: 800;
+
+  line-height: 1.1;
+}
+
+.metric-content small {
+  margin-top: 5px;
+
+  color: #98a1b2;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   MAIN GRID
+   ========================================= */
+
+.dashboard-grid {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+
+  gap: 20px;
+}
+
+
+/* =========================================
+   DASHBOARD CARDS
+   ========================================= */
+
+.dashboard-card {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e6e9ef;
+  border-radius: 18px;
+
+  box-shadow: 0 8px 30px rgba(20, 30, 55, 0.05);
+}
+
+
+/* =========================================
+   CARD HEADER
+   ========================================= */
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 22px 24px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.section-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #6366f1;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.card-header h2 {
+  margin: 0;
+
+  color: #182033;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.card-count {
+  padding: 6px 10px;
+
+  border-radius: 8px;
+
+  background: #f8fafc;
+
+  color: #64748b;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   SECTORS
+   ========================================= */
+
+.sector-list {
+  padding: 8px 24px 12px;
+}
+
+.sector-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 0;
+
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.sector-row:last-child {
+  border-bottom: none;
+}
+
+.sector-info {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: #4d5667;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sector-dot {
+  width: 8px;
+  height: 8px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #6366f1;
+}
+
+.sector-row strong {
+  min-width: 32px;
+
+  padding: 5px 9px;
+
+  border-radius: 7px;
+
+  background: #f8fafc;
+
+  color: #273044;
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+
+/* =========================================
+   EMPTY SECTOR
+   ========================================= */
+
+.empty-sector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 180px;
+
+  color: #7b8496;
+
+  text-align: center;
+}
+
+.empty-sector span {
+  margin-bottom: 8px;
+
+  font-size: 32px;
+}
+
+.empty-sector p {
+  margin: 0;
+
+  font-size: 13px;
+}
+
+
+/* =========================================
+   QUICK LINKS
+   ========================================= */
+
+.quick-links {
+  padding: 10px 14px 14px;
+}
+
+.quick-link {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 13px 10px;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.quick-link:hover {
+  background: #fafbff;
+
+  transform: translateX(2px);
+}
+
+
+/* =========================================
+   QUICK LINK ICON
+   ========================================= */
+
+.quick-link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #eef2ff;
+
+  font-size: 17px;
+}
+
+
+/* =========================================
+   QUICK LINK CONTENT
+   ========================================= */
+
+.quick-link-content {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  min-width: 0;
+}
+
+.quick-link-content strong {
+  color: #273044;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.quick-link-content span {
+  margin-top: 3px;
+
+  color: #98a1b2;
+
+  font-size: 11px;
+}
+
+
+/* =========================================
+   ARROW
+   ========================================= */
+
+.quick-arrow {
+  color: #8992a3;
+
+  font-size: 19px;
+
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.quick-link:hover .quick-arrow {
+  color: #6366f1;
+
+  transform: translateX(3px);
+}
+
+
+/* =========================================
+   LOADING / ERROR
+   ========================================= */
+
+.dashboard-state {
+  min-height: 400px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #7b8496;
+}
+
+.dashboard-state p {
+  margin: 12px 0 0;
+
+  font-size: 14px;
+}
+
+.dashboard-error {
+  padding: 30px;
+
+  box-sizing: border-box;
+}
+
+.dashboard-error .state-icon {
+  margin-bottom: 8px;
+
+  font-size: 38px;
+}
+
+.dashboard-error h3 {
+  margin: 0;
+
+  color: #273044;
+
+  font-size: 18px;
+}
+
+.dashboard-error p {
+  color: #be123c;
+}
+
+
+/* =========================================
+   SPINNER
+   ========================================= */
+
+.spinner {
+  width: 32px;
+  height: 32px;
+
+  border: 3px solid #e5e7eb;
+  border-top-color: #6366f1;
+
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE 1000px
+   ========================================= */
+
+@media (max-width: 1000px) {
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-actions-card {
+    max-width: none;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE 800px
+   ========================================= */
+
+@media (max-width: 800px) {
+
+  .dashboard-page {
+    padding: 25px;
+  }
+
+  .dashboard-header {
+    align-items: flex-start;
+  }
+
+  .dashboard-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card {
+    min-height: 105px;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE 650px
+   ========================================= */
+
+@media (max-width: 650px) {
+
+  .dashboard-page {
+    padding: 18px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 30px;
+  }
+
+  .system-status {
+    align-self: flex-start;
+  }
+
+  .dashboard-metrics {
+    gap: 12px;
+  }
+
+  .metric-card {
+    padding: 18px;
+  }
+
+  .card-header {
+    padding: 20px;
+  }
+
+  .sector-list {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE 500px
+   ========================================= */
+
+@media (max-width: 500px) {
+
+  .dashboard-header h1 {
+    font-size: 27px;
+  }
+
+  .dashboard-header p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .metric-icon {
+    width: 43px;
+    height: 43px;
+  }
+
+  .metric-content strong {
+    font-size: 27px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .quick-link {
+    padding: 12px 6px;
+  }
+
+  .quick-link-icon {
+    width: 38px;
+    height: 38px;
+  }
+}

@@ -1,0 +1,244 @@
+.conversation {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #dfe7e5;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06);
+}
+
+.conversation-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px;
+  border-bottom: 1px solid #e8eeec;
+}
+
+.conversation-title {
+  min-width: 0;
+}
+
+.conversation-title .section-label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.conversation-title h2 {
+  margin: 0;
+  color: #16252d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.conversation-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.conversation-status-ok {
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.conversation-status-error {
+  color: #991b1b;
+  background: #fff7f7;
+  border: 1px solid #fecaca;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.conversation-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 330px;
+  max-height: 520px;
+  padding: 24px;
+  overflow-y: auto;
+  background: #fafcfb;
+}
+
+.conversation-bulle {
+  max-width: 70%;
+  padding: 11px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.conversation-bulle p {
+  margin: 0 0 5px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.conversation-bulle time {
+  display: block;
+  font-size: 10px;
+  opacity: 0.65;
+}
+
+.conversation-moi {
+  align-self: flex-end;
+  color: #fff;
+  background: #0f766e;
+  border-bottom-right-radius: 4px;
+}
+
+.conversation-autre {
+  align-self: flex-start;
+  color: #172033;
+  background: #fff;
+  border: 1px solid #dfe7e5;
+  border-bottom-left-radius: 4px;
+}
+
+.conversation-empty {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 280px;
+  color: #64748b;
+}
+
+.conversation-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: #f0fdfa;
+  color: #0f766e;
+  font-size: 19px;
+}
+
+.conversation-empty strong {
+  color: #16252d;
+  font-size: 14px;
+}
+
+.conversation-empty p {
+  margin: 5px 0 0;
+  font-size: 12px;
+}
+
+.conversation-error,
+.conversation-form-error {
+  margin: 16px 24px;
+  padding: 12px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  background: #fff7f7;
+  color: #991b1b;
+  font-size: 12px;
+}
+
+.conversation-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 20px;
+  border-top: 1px solid #e8eeec;
+  background: #fff;
+}
+
+.conversation-form input {
+  flex: 1;
+  height: 44px;
+  padding: 0 13px;
+  border: 1px solid #d5dfdc;
+  border-radius: 11px;
+  outline: none;
+  color: #172033;
+  background: #fff;
+  font-size: 13px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.conversation-form input::placeholder {
+  color: #94a3b8;
+}
+
+.conversation-form input:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+.conversation-form input:disabled {
+  background: #f8fafc;
+  cursor: not-allowed;
+}
+
+.conversation-form button {
+  height: 44px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 11px;
+  background: #0f766e;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.conversation-form button:hover:not(:disabled) {
+  background: #115e59;
+  transform: translateY(-1px);
+}
+
+.conversation-form button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .conversation-head {
+    padding: 18px;
+  }
+
+  .conversation-title h2 {
+    font-size: 21px;
+  }
+
+  .conversation-messages {
+    min-height: 300px;
+    padding: 18px 14px;
+  }
+
+  .conversation-bulle {
+    max-width: 85%;
+  }
+
+  .conversation-form {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 14px;
+  }
+
+  .conversation-form input,
+  .conversation-form button {
+    width: 100%;
+  }
+}
