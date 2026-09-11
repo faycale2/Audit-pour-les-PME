@@ -19,16 +19,17 @@ function Evolution() {
   useEffect(() => {
     async function charger() {
       try {
-        const [dataEvolution, dataComparatif, dataThemes, dataPrediction] = await Promise.all([
+        const resultats = await Promise.allSettled([
           getEvolutionTendance(),
           getComparatifBenchmark(),
           getTendanceParTheme(),
           getPredictionProgression(),
         ]);
-        setEvolution(dataEvolution);
-        setComparatif(dataComparatif);
-        setTendanceThemes(dataThemes);
-        setPrediction(dataPrediction);
+        if (resultats[0].status === "rejected") throw resultats[0].reason;
+        setEvolution(resultats[0].value);
+        if (resultats[1].status === "fulfilled") setComparatif(resultats[1].value);
+        if (resultats[2].status === "fulfilled") setTendanceThemes(resultats[2].value);
+        if (resultats[3].status === "fulfilled") setPrediction(resultats[3].value);
       } catch {
         setErreur("Impossible de charger l'analyse. Avez-vous déjà terminé une évaluation ?");
       } finally {
@@ -75,6 +76,8 @@ function Evolution() {
           </div>
         )}
       </section>
+
+      {!comparatif && <section className="section-bloc"><p className="note-info">Le benchmark sera disponible après votre première évaluation terminée.</p></section>}
 
       {/* --- Tendance globale (corrigée) --- */}
       {tendance.disponible ? (
@@ -145,9 +148,15 @@ function Evolution() {
           </div>
         </section>
       )}
+      {prediction && !prediction.disponible && (
+        <section className="section-bloc">
+          <h2>Prédiction de progression</h2>
+          <p className="note-info">{prediction.raison || "La prédiction sera disponible après plusieurs évaluations terminées."}</p>
+        </section>
+      )}
 
       {/* --- Comparatif marché --- */}
-      <section className="section-bloc">
+      {comparatif && <section className="section-bloc">
         <h2>Positionnement par rapport au marché</h2>
         <div className="comparatif-grille">
           <div className="comparatif-carte comparatif-vous">
@@ -165,7 +174,7 @@ function Evolution() {
             <span className="comparatif-note">{comparatif.benchmark_global.nb_evaluations_comparees} évaluation(s)</span>
           </div>
         </div>
-      </section>
+      </section>}
 
       <Link to="/questionnaire" className="btn btn-secondaire lien-retour">
         ← Repasser une évaluation

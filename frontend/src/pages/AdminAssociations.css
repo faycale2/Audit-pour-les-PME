@@ -1,0 +1,698 @@
+/* =========================================
+   PAGE ASSOCIATIONS
+   ========================================= */
+
+.associations-page {
+  min-height: 100vh;
+  padding: 40px;
+  box-sizing: border-box;
+
+  background: #f6f8fb;
+  color: #172033;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.associations-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.associations-header h1 {
+  margin: 0;
+
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.associations-header p {
+  margin: 8px 0 0;
+
+  color: #697386;
+  font-size: 15px;
+}
+
+
+/* =========================================
+   EYEBROW
+   ========================================= */
+
+.eyebrow {
+  display: inline-block;
+
+  margin-bottom: 8px;
+
+  color: #6366f1;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================================
+   COMPTEUR
+   ========================================= */
+
+.associations-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 110px;
+  height: 85px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e7eaf0;
+  border-radius: 16px;
+
+  box-shadow: 0 4px 18px rgba(20, 30, 55, 0.05);
+}
+
+.associations-count strong {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.associations-count span {
+  color: #7b8496;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   ALERTES
+   ========================================= */
+
+.association-alert {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 13px 16px;
+  margin-bottom: 20px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.alert-error {
+  background: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fecdd3;
+}
+
+.alert-success {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+
+/* =========================================
+   LAYOUT
+   ========================================= */
+
+.association-layout {
+  display: grid;
+
+  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1.28fr);
+
+  gap: 20px;
+
+  align-items: start;
+}
+
+
+/* =========================================
+   CARDS
+   ========================================= */
+
+.association-card {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e6e9ef;
+  border-radius: 18px;
+
+  box-shadow: 0 8px 30px rgba(20, 30, 55, 0.05);
+}
+
+
+/* =========================================
+   CARD TOP
+   ========================================= */
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 22px 24px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.section-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #6366f1;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.card-top h2 {
+  margin: 0;
+
+  color: #182033;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.card-top p {
+  margin: 6px 0 0;
+
+  color: #7b8496;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* =========================================
+   FORM ICON
+   ========================================= */
+
+.form-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  border-radius: 11px;
+
+  background: #eef2ff;
+
+  font-size: 19px;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.association-form {
+  padding-bottom: 24px;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+
+  padding: 24px;
+}
+
+.form-fields label {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.form-fields label > span {
+  color: #374151;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-fields select {
+  width: 100%;
+  height: 45px;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #e1e5eb;
+  border-radius: 10px;
+
+  outline: none;
+
+  background: #ffffff;
+  color: #4d5667;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.form-fields select:focus {
+  border-color: #6366f1;
+
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-fields select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   ASSOCIER
+   ========================================= */
+
+.associate-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  width: calc(100% - 48px);
+  height: 43px;
+
+  margin: 0 24px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #6366f1;
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.associate-button:hover {
+  background: #4f46e5;
+}
+
+.associate-button:active {
+  transform: translateY(1px);
+}
+
+.associate-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   CARD COUNT
+   ========================================= */
+
+.card-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 30px;
+  height: 28px;
+
+  padding: 0 8px;
+
+  box-sizing: border-box;
+
+  border-radius: 8px;
+
+  background: #f8fafc;
+
+  color: #64748b;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   ASSOCIATION LIST
+   ========================================= */
+
+.association-list {
+  padding: 8px 24px;
+}
+
+.association-row {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 16px 0;
+
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.association-row:last-child {
+  border-bottom: none;
+}
+
+
+/* =========================================
+   PERSON
+   ========================================= */
+
+.person-block {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.person-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  font-size: 16px;
+}
+
+.pme-avatar {
+  background: #eef2ff;
+}
+
+.consultant-avatar {
+  background: #e0f2fe;
+}
+
+.person-block > div:last-child {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+.person-block strong {
+  overflow: hidden;
+
+  color: #273044;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.person-block small {
+  overflow: hidden;
+
+  margin-top: 3px;
+
+  color: #98a1b2;
+
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.person-type {
+  display: inline-block;
+
+  margin-top: 4px;
+
+  color: #6366f1;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+
+/* =========================================
+   RELATION ARROW
+   ========================================= */
+
+.relation-arrow {
+  color: #94a3b8;
+
+  font-size: 19px;
+}
+
+
+/* =========================================
+   RETIRER
+   ========================================= */
+
+.remove-button {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 8px 11px;
+
+  border: 1px solid #fee2e2;
+  border-radius: 9px;
+
+  background: #fff7f7;
+  color: #dc2626;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.remove-button:hover {
+  background: #fee2e2;
+}
+
+.remove-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   LOADING / EMPTY
+   ========================================= */
+
+.association-state {
+  min-height: 280px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #7b8496;
+}
+
+.association-state p {
+  margin: 12px 0 0;
+
+  font-size: 13px;
+}
+
+.association-state.empty {
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.empty-icon {
+  margin-bottom: 8px;
+
+  font-size: 38px;
+}
+
+.association-state h3 {
+  margin: 0;
+
+  color: #273044;
+
+  font-size: 16px;
+}
+
+.association-state.empty p {
+  text-align: center;
+}
+
+
+/* =========================================
+   SPINNER
+   ========================================= */
+
+.spinner {
+  width: 32px;
+  height: 32px;
+
+  border: 3px solid #e5e7eb;
+  border-top-color: #6366f1;
+
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE 1000px
+   ========================================= */
+
+@media (max-width: 1000px) {
+  .association-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE 800px
+   ========================================= */
+
+@media (max-width: 800px) {
+  .associations-page {
+    padding: 25px;
+  }
+
+  .associations-header {
+    align-items: flex-start;
+  }
+
+  .association-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .relation-arrow {
+    display: none;
+  }
+
+  .remove-button {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE 650px
+   ========================================= */
+
+@media (max-width: 650px) {
+  .associations-page {
+    padding: 18px;
+  }
+
+  .associations-header {
+    flex-direction: column;
+  }
+
+  .associations-count {
+    width: 100%;
+    height: 70px;
+  }
+
+  .associations-header h1 {
+    font-size: 29px;
+  }
+
+  .card-top {
+    padding: 20px;
+  }
+
+  .form-fields {
+    padding: 20px;
+  }
+
+  .associate-button {
+    width: calc(100% - 40px);
+    margin: 0 20px;
+  }
+
+  .association-list {
+    padding: 8px 20px;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE 500px
+   ========================================= */
+
+@media (max-width: 500px) {
+  .associations-header h1 {
+    font-size: 27px;
+  }
+
+  .association-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .remove-button {
+    grid-column: auto;
+    grid-row: auto;
+
+    width: 100%;
+
+    justify-content: center;
+  }
+}
