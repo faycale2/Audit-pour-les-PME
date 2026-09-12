@@ -390,3 +390,29 @@
     padding: 17px;
   }
 }
+/* =========================================
+   RETOUR À L'ACCUEIL
+   ========================================= */
+
+.back-home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 22px;
+
+  color: #697386;
+  font-size: 12px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.back-home-link:hover {
+  color: #4f46e5;
+  transform: translateX(-2px);
+}

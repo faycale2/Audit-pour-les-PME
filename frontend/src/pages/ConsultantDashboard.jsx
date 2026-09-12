@@ -434,55 +434,55 @@ function ConsultantDashboard() {
   // ========================================================
 
   const confirmerFinAccompagnement = async () => {
-    if (!demandePourFinAccompagnement) {
-      return;
+  if (!demandePourFinAccompagnement) {
+    return;
+  }
+
+  setFinAccompagnement(true);
+  setErreur("");
+
+  try {
+    const pmeId = Number(
+      demandePourFinAccompagnement.pme
+    );
+
+    await terminerAccompagnement(pmeId);
+
+    // Retirer immédiatement la PME du portefeuille actif
+    const listePmes = pmes.filter(
+      (pme) => Number(pme.id) !== pmeId
+    );
+
+    setPmes(listePmes);
+
+    // Si la PME terminée était sélectionnée
+    if (pmeSelectionnee?.id === pmeId) {
+      setPmeSelectionnee(
+        listePmes[0] || null
+      );
     }
 
-    setFinAccompagnement(true);
-    setErreur("");
-
-    try {
-      await terminerAccompagnement(
-        demandePourFinAccompagnement.pme_id
+    // Si la PME terminée était affichée dans l'historique
+    if (pmeHistorique?.id === pmeId) {
+      setPmeHistorique(
+        listePmes[0] || null
       );
-
-      // Retirer la PME du portefeuille actif
-      const listePmes = pmes.filter(
-        (pme) =>
-          pme.id !== demandePourFinAccompagnement.pme_id
-      );
-
-      setPmes(listePmes);
-
-      // Si la PME terminée était sélectionnée,
-      // sélectionner une autre PME si elle existe.
-      if (
-        pmeSelectionnee?.id ===
-        demandePourFinAccompagnement.pme_id
-      ) {
-        setPmeSelectionnee(listePmes[0] || null);
-      }
-
-      if (
-        pmeHistorique?.id ===
-        demandePourFinAccompagnement.pme_id
-      ) {
-        setPmeHistorique(listePmes[0] || null);
-      }
-
-      setDemandePourFinAccompagnement(null);
-    } catch (error) {
-      console.error(error);
-
-      setErreur(
-        error.response?.data?.detail ||
-          "L'accompagnement n'a pas pu être terminé."
-      );
-    } finally {
-      setFinAccompagnement(false);
     }
-  };
 
+    // Fermer la modale
+    setDemandePourFinAccompagnement(null);
+
+  } catch (error) {
+    console.error(error);
+
+    setErreur(
+      error.response?.data?.detail ||
+        "L'accompagnement n'a pas pu être terminé."
+    );
+  } finally {
+    setFinAccompagnement(false);
+  }
+};
   // ========================================================
   // DEMANDES FILTRÉES
   // ========================================================
