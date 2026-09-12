@@ -96,20 +96,26 @@ function Inscription() {
   };
 
   return (
-    <main className="auth-page">
-      <section className="auth-panel">
+  <main className="auth-page">
+    <section className="auth-panel">
 
-        <header className="auth-header">
-          <div>
-            <span className="eyebrow">Audit cybersécurité PME</span>
+      <Link to="/" className="back-home-link">
+        ← Retour à l'accueil
+      </Link>
 
-            <h1>Créer votre espace</h1>
+      <header className="auth-header">
+        <div>
+          <span className="eyebrow">
+            Audit cybersécurité PME
+          </span>
 
-            <p className="auth-intro">
-              Choisissez votre profil pour créer votre compte.
-            </p>
-          </div>
-        </header>
+          <h1>Créer votre espace</h1>
+
+          <p className="auth-intro">
+            Choisissez votre profil pour créer votre compte.
+          </p>
+        </div>
+      </header>
 
         {/* Choix du profil */}
         <section className="profile-selection">

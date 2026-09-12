@@ -41,21 +41,25 @@ function Connexion() {
   };
 
   return (
-    <main className="auth-page">
-      <section className="auth-panel connexion-panel">
+  <main className="auth-page">
+    <section className="auth-panel connexion-panel">
 
-        <header className="auth-header">
-          <span className="eyebrow">
-            Audit cybersécurité PME
-          </span>
+      <Link to="/" className="back-home-link">
+        ← Retour à l'accueil
+      </Link>
 
-          <h1>Connexion</h1>
+      <header className="auth-header">
+        <span className="eyebrow">
+          Audit cybersécurité PME
+        </span>
 
-          <p className="auth-intro">
-            Accédez à votre évaluation de maturité, vos résultats
-            et votre accompagnement.
-          </p>
-        </header>
+        <h1>Connexion</h1>
+
+        <p className="auth-intro">
+          Accédez à votre évaluation de maturité, vos résultats
+          et votre accompagnement.
+        </p>
+      </header>
 
         <form
           onSubmit={handleSubmit}
